@@ -1,8 +1,9 @@
 package donatr.rest;
 
-import donatr.common.AccountCreatedEvent;
 import com.zanox.rabbiteasy.cdi.ConnectionConfiguration;
 import com.zanox.rabbiteasy.cdi.EventBinder;
+import donatr.common.AccountCreatedEvent;
+import donatr.common.CreateAccountCommand;
 
 @ConnectionConfiguration(
 		host = "localhost", port=5672,
@@ -11,6 +12,8 @@ import com.zanox.rabbiteasy.cdi.EventBinder;
 public class RestApiEventBinder extends EventBinder {
 	@Override
 	protected void bindEvents() {
+		bind(CreateAccountCommand.class)
+				.toExchange("donatr").withRoutingKey("command");
 		bind(AccountCreatedEvent.class)
 				.toQueue("event");
 	}

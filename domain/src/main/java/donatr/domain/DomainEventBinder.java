@@ -13,7 +13,7 @@ public class DomainEventBinder extends EventBinder {
 	@Override
 	protected void bindEvents() {
 		bind(CreateAccountCommand.class)
-				.toExchange("donatr").withRoutingKey("command");
+				.toQueue("command");
 		bind(AccountCreatedEvent.class)
 				.toExchange("donatr").withRoutingKey("event");
 	}

@@ -45,11 +45,6 @@
                 <version>1.16.6</version>
             </dependency>
             <dependency>
-                <groupId>org.reflections</groupId>
-                <artifactId>reflections</artifactId>
-                <version>0.9.10</version>
-            </dependency>
-            <dependency>
                 <groupId>com.zanox.lib.rabbiteasy</groupId>
                 <artifactId>rabbiteasy-core</artifactId>
                 <version>1.2.0</version>

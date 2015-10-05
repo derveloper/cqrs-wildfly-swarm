@@ -4,7 +4,7 @@ import donatr.common.AccountCreatedEvent;
 import donatr.common.AccountServletContextListener;
 import donatr.common.CreateAccountCommand;
 import donatr.domain.account.Account;
-import donatr.domain.account.AccountEventListener;
+import donatr.domain.account.AccountEntry;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -38,12 +38,12 @@ public class Main {
 
 		container.start();
 
-		JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
+		JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "domain.war");
 		deployment.addClasses(DomainEventBinder.class);
-		deployment.addClasses(Account.class);
 		deployment.addClasses(CreateAccountCommand.class);
 		deployment.addClasses(AccountCreatedEvent.class);
-		deployment.addClasses(AccountEventListener.class);
+		deployment.addResource(Account.class);
+		deployment.addResource(AccountEntry.class);
 		deployment.addClasses(AccountServletContextListener.class);
 		deployment.addAsWebInfResource(new StringAsset("<beans xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
 				"    xsi:schemaLocation=\"\n" +
