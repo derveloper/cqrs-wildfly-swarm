@@ -1,4 +1,4 @@
-package cc.vileda.accounting.query;
+package cc.vileda.domain.query;
 
 import lombok.Data;
 

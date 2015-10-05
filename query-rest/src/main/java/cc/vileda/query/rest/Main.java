@@ -1,4 +1,4 @@
-package cc.vileda.frontend;
+package cc.vileda.query.rest;
 
 import cc.vileda.cqrs.common.AccountCreatedEvent;
 import cc.vileda.cqrs.common.AccountServletContextListener;
@@ -15,7 +15,7 @@ public class Main {
 		container.start();
 
 		JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "frontend.war");
-		deployment.addClasses(AccountEventBinder.class);
+		deployment.addClasses(QueryRestEventBinder.class);
 		deployment.addClasses(CreateAccountCommand.class);
 		deployment.addClasses(AccountCreatedEvent.class);
 		deployment.addClasses(AccountServletContextListener.class);
@@ -25,7 +25,6 @@ public class Main {
 				"        http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd\" bean-discovery-mode=\"all\">\n" +
 				"</beans>"), "beans.xml");
 		deployment.addResource(AccountController.class);
-		deployment.addClasses(AccountEventListener.class);
 		deployment.addAllDependencies();
 
 		container.deploy(deployment);

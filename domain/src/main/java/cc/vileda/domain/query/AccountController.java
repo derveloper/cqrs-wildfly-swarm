@@ -1,4 +1,4 @@
-package cc.vileda.accounting.query;
+package cc.vileda.domain.query;
 
 import cc.vileda.cqrs.common.CreateAccountCommand;
 

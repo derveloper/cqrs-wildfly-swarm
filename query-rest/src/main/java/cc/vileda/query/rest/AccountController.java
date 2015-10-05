@@ -1,4 +1,4 @@
-package cc.vileda.frontend;
+package cc.vileda.query.rest;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;

@@ -1,9 +1,9 @@
-package cc.vileda.accounting;
+package cc.vileda.domain;
 
-import cc.vileda.accounting.domain.Account;
-import cc.vileda.accounting.domain.AccountEventListener;
-import cc.vileda.accounting.query.AccountController;
-import cc.vileda.accounting.query.AccountEntry;
+import cc.vileda.domain.domain.Account;
+import cc.vileda.domain.domain.AccountEventListener;
+import cc.vileda.domain.query.AccountController;
+import cc.vileda.domain.query.AccountEntry;
 import cc.vileda.cqrs.common.AccountCreatedEvent;
 import cc.vileda.cqrs.common.AccountServletContextListener;
 import cc.vileda.cqrs.common.CreateAccountCommand;
@@ -41,7 +41,7 @@ public class Main {
 		container.start();
 
 		JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
-		deployment.addClasses(AccountEventBinder.class);
+		deployment.addClasses(DomainEventBinder.class);
 		deployment.addClasses(Account.class);
 		deployment.addClasses(AccountEntry.class);
 		deployment.addClasses(CreateAccountCommand.class);

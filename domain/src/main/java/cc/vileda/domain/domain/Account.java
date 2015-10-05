@@ -1,4 +1,4 @@
-package cc.vileda.accounting.domain;
+package cc.vileda.domain.domain;
 
 import cc.vileda.cqrs.common.AccountCreatedEvent;
 import cc.vileda.cqrs.common.CreateAccountCommand;

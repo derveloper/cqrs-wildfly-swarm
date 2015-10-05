@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>cqrs</artifactId>
-        <groupId>cc.vileda.cqrs</groupId>
+        <artifactId>donatr</artifactId>
+        <groupId>donatr</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -34,26 +34,4 @@
             <artifactId>rabbiteasy-cdi</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>wildfly-swarm-plugin</artifactId>
-                <configuration>
-                    <mainClass>cc.vileda.frontend.Main</mainClass>
-                    <properties>
-                        <jboss.socket.binding.port-offset>1</jboss.socket.binding.port-offset>
-                    </properties>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
