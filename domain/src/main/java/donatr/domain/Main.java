@@ -1,12 +1,10 @@
-package cc.vileda.domain;
+package donatr.domain;
 
-import cc.vileda.domain.domain.Account;
-import cc.vileda.domain.domain.AccountEventListener;
-import cc.vileda.domain.query.AccountController;
-import cc.vileda.domain.query.AccountEntry;
-import cc.vileda.cqrs.common.AccountCreatedEvent;
-import cc.vileda.cqrs.common.AccountServletContextListener;
-import cc.vileda.cqrs.common.CreateAccountCommand;
+import donatr.common.AccountCreatedEvent;
+import donatr.common.AccountServletContextListener;
+import donatr.common.CreateAccountCommand;
+import donatr.domain.account.Account;
+import donatr.domain.account.AccountEventListener;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -43,7 +41,6 @@ public class Main {
 		JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
 		deployment.addClasses(DomainEventBinder.class);
 		deployment.addClasses(Account.class);
-		deployment.addClasses(AccountEntry.class);
 		deployment.addClasses(CreateAccountCommand.class);
 		deployment.addClasses(AccountCreatedEvent.class);
 		deployment.addClasses(AccountEventListener.class);
@@ -54,7 +51,6 @@ public class Main {
 				"        http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd\" bean-discovery-mode=\"all\">\n" +
 				"</beans>"), "beans.xml");
 		deployment.addAsWebInfResource(new ClassLoaderAsset("META-INF/persistence.xml", Main.class.getClassLoader()), "classes/META-INF/persistence.xml");
-		deployment.addResource(AccountController.class);
 		deployment.addAllDependencies();
 
 		container.deploy(deployment);

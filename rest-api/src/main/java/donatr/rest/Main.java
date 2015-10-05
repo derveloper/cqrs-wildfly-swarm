@@ -1,8 +1,10 @@
-package cc.vileda.query.rest;
+package donatr.rest;
 
-import cc.vileda.cqrs.common.AccountCreatedEvent;
-import cc.vileda.cqrs.common.AccountServletContextListener;
-import cc.vileda.cqrs.common.CreateAccountCommand;
+import donatr.common.AccountCreatedEvent;
+import donatr.common.AccountServletContextListener;
+import donatr.common.CreateAccountCommand;
+import donatr.rest.query.AccountQueryController;
+import donatr.rest.RestApiEventBinder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.wildfly.swarm.container.Container;
@@ -15,7 +17,7 @@ public class Main {
 		container.start();
 
 		JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "frontend.war");
-		deployment.addClasses(QueryRestEventBinder.class);
+		deployment.addClasses(RestApiEventBinder.class);
 		deployment.addClasses(CreateAccountCommand.class);
 		deployment.addClasses(AccountCreatedEvent.class);
 		deployment.addClasses(AccountServletContextListener.class);
@@ -24,7 +26,7 @@ public class Main {
 				"        http://xmlns.jcp.org/xml/ns/javaee\n" +
 				"        http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd\" bean-discovery-mode=\"all\">\n" +
 				"</beans>"), "beans.xml");
-		deployment.addResource(AccountController.class);
+		deployment.addResource(AccountQueryController.class);
 		deployment.addAllDependencies();
 
 		container.deploy(deployment);

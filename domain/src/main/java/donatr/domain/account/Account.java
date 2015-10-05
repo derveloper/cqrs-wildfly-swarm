@@ -1,7 +1,7 @@
-package cc.vileda.domain.domain;
+package donatr.domain.account;
 
-import cc.vileda.cqrs.common.AccountCreatedEvent;
-import cc.vileda.cqrs.common.CreateAccountCommand;
+import donatr.common.AccountCreatedEvent;
+import donatr.common.CreateAccountCommand;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;

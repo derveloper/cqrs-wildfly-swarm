@@ -1,7 +1,6 @@
-package cc.vileda.query.rest;
+package donatr.rest;
 
-import cc.vileda.cqrs.common.AccountCreatedEvent;
-import cc.vileda.cqrs.common.CreateAccountCommand;
+import donatr.common.AccountCreatedEvent;
 import com.zanox.rabbiteasy.cdi.ConnectionConfiguration;
 import com.zanox.rabbiteasy.cdi.EventBinder;
 
@@ -9,7 +8,7 @@ import com.zanox.rabbiteasy.cdi.EventBinder;
 		host = "localhost", port=5672,
 		username = "admin", password = "KSzQsW6B9Ea2"
 )
-public class QueryRestEventBinder extends EventBinder {
+public class RestApiEventBinder extends EventBinder {
 	@Override
 	protected void bindEvents() {
 		bind(AccountCreatedEvent.class)

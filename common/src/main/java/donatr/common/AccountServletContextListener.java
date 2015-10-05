@@ -1,4 +1,4 @@
-package cc.vileda.cqrs.common;
+package donatr.common;
 
 import com.zanox.rabbiteasy.cdi.EventBinder;
 

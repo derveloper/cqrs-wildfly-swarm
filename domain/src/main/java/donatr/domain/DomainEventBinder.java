@@ -1,7 +1,7 @@
-package cc.vileda.domain;
+package donatr.domain;
 
-import cc.vileda.cqrs.common.AccountCreatedEvent;
-import cc.vileda.cqrs.common.CreateAccountCommand;
+import donatr.common.AccountCreatedEvent;
+import donatr.common.CreateAccountCommand;
 import com.zanox.rabbiteasy.cdi.ConnectionConfiguration;
 import com.zanox.rabbiteasy.cdi.EventBinder;
 

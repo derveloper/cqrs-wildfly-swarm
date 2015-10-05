@@ -99,8 +99,7 @@
     <modules>
         <module>common</module>
         <module>domain</module>
-        <module>query-rest</module>
-        <module>command-rest</module>
+        <module>rest-api</module>
     </modules>
     <repositories>
         <repository>

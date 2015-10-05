@@ -1,24 +1,21 @@
-package cc.vileda.domain.query;
+package donatr.rest.command;
 
-import cc.vileda.cqrs.common.CreateAccountCommand;
+import donatr.common.CreateAccountCommand;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 
 @Path("/accounts")
 @ApplicationScoped
-public class AccountController {
+public class AccountCommandController {
 	@Inject
 	CreateAccountCommand createAccountCommand;
 	@Inject
 	Event<CreateAccountCommand> createAccountCommandBus;
 
-	@GET
+	@POST
 	@Path("{id}")
 	@Produces("application/json")
 	public AccountEntry getAccount(@PathParam("id") String id) {

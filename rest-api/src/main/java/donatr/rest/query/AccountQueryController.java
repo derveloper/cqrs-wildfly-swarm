@@ -1,4 +1,4 @@
-package cc.vileda.query.rest;
+package donatr.rest.query;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 
 @Path("/accounts")
 @ApplicationScoped
-public class AccountController {
+public class AccountQueryController {
 	@GET
 	@Path("{id}")
 	@Produces("application/json")

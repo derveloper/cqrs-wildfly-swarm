@@ -1,4 +1,4 @@
-package cc.vileda.domain.domain;
+package donatr.domain.account;
 
 import javax.enterprise.context.RequestScoped;
 

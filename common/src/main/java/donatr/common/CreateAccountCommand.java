@@ -1,4 +1,4 @@
-package cc.vileda.cqrs.common;
+package donatr.common;
 
 public class CreateAccountCommand {
 	private String id;

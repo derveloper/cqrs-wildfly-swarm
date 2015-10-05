@@ -56,7 +56,7 @@
                 <groupId>org.wildfly.swarm</groupId>
                 <artifactId>wildfly-swarm-plugin</artifactId>
                 <configuration>
-                    <mainClass>cc.vileda.domain.Main</mainClass>
+                    <mainClass>donatr.domain.Main</mainClass>
                     <properties>
                         <jboss.socket.binding.port-offset>0</jboss.socket.binding.port-offset>
                     </properties>
