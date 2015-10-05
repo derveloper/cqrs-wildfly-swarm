@@ -3,6 +3,7 @@ package donatr.domain.account;
 import donatr.common.AccountCreatedEvent;
 import donatr.common.CreateAccountCommand;
 
+import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
@@ -11,10 +12,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @ApplicationScoped
+@Stateless
 public class Account {
 	@Inject
 	Event<AccountCreatedEvent> accountCreatedEventBus;
-	@PersistenceContext
+	@PersistenceContext(unitName = "MyPU")
 	EntityManager entityManager;
 
 	private String id;
