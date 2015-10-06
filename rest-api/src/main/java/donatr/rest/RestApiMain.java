@@ -14,7 +14,7 @@ import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.wildfly.swarm.container.Container;
 import org.wildfly.swarm.jaxrs.JAXRSArchive;
 
-public class Main {
+public class RestApiMain {
 	public static void main(String[] args) throws Exception {
 		Container container = new Container();
 

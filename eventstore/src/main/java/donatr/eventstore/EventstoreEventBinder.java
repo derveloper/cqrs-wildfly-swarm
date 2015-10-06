@@ -1,4 +1,4 @@
-package donatr.domain;
+package donatr.eventstore;
 
 import com.zanox.rabbiteasy.cdi.ConnectionConfiguration;
 import com.zanox.rabbiteasy.cdi.EventBinder;
@@ -9,17 +9,12 @@ import donatr.common.CreateAccountCommand;
 		host = "localhost", port=5672,
 		username = "admin", password = "KSzQsW6B9Ea2"
 )
-public class DomainEventBinder extends EventBinder {
+public class EventstoreEventBinder extends EventBinder {
 	@Override
 	protected void bindEvents() {
 		bind(CreateAccountCommand.class)
-				.toQueue("command");
-
+				.toQueue("eventstore");
 		bind(AccountCreatedEvent.class)
-				.toExchange("donatr")
-				.withRoutingKey("donatr.event")
-				.withImmediateDelivery()
-				.withMandatoryDelivery()
-				.withPublisherConfirms();
+				.toQueue("eventstore");
 	}
 }

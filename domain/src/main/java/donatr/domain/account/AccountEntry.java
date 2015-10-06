@@ -15,6 +15,5 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class AccountEntry {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 }

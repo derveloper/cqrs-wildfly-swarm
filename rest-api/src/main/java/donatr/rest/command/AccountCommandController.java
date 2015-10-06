@@ -21,10 +21,9 @@ public class AccountCommandController {
 
 	@POST
 	public CreateAccountResponse createAccount(CreateAccountRequest createAccountRequest) {
-		CreateAccountResponse response = new CreateAccountResponse(UUID.randomUUID().toString());
 		System.out.println("+++ACCOUNTS_QUERY " + createAccountRequest);
-		createAccountCommand.setId(response.getId());
-		createAccountCommandBus.fire(createAccountCommand);
+		CreateAccountResponse response = new CreateAccountResponse(UUID.randomUUID().toString());
+		createAccountCommandBus.fire(new CreateAccountCommand(response.getId()));
 		return response;
 	}
 }

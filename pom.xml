@@ -35,6 +35,11 @@
                 <version>${version.wildfly-swarm}</version>
             </dependency>
             <dependency>
+                <groupId>org.wildfly.swarm</groupId>
+                <artifactId>wildfly-swarm-transactions</artifactId>
+                <version>${version.wildfly-swarm}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>1.4.188</version>
@@ -95,5 +100,6 @@
         <module>common</module>
         <module>domain</module>
         <module>rest-api</module>
+        <module>eventstore</module>
     </modules>
 </project>

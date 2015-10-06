@@ -48,7 +48,7 @@
                 <groupId>org.wildfly.swarm</groupId>
                 <artifactId>wildfly-swarm-plugin</artifactId>
                 <configuration>
-                    <mainClass>donatr.rest.Main</mainClass>
+                    <mainClass>donatr.rest.RestApiMain</mainClass>
                     <properties>
                         <jboss.socket.binding.port-offset>1</jboss.socket.binding.port-offset>
                     </properties>

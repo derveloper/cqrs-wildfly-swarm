@@ -13,7 +13,12 @@ public class RestApiEventBinder extends EventBinder {
 	@Override
 	protected void bindEvents() {
 		bind(CreateAccountCommand.class)
-				.toExchange("donatr").withRoutingKey("command");
+				.toExchange("donatr")
+				.withRoutingKey("donatr.command")
+				.withImmediateDelivery()
+				.withMandatoryDelivery()
+				.withPublisherConfirms();
+
 		bind(AccountCreatedEvent.class)
 				.toQueue("event");
 	}

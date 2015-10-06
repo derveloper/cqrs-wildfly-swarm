@@ -1,13 +1,18 @@
-package donatr.common;
+package donatr.eventstore;
 
-import com.zanox.rabbiteasy.cdi.ContainsId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountCreatedEvent implements ContainsId<String>, DonatrEvent {
+public class EventEntry {
+	@Id
 	private String id;
+	private String event;
 }
