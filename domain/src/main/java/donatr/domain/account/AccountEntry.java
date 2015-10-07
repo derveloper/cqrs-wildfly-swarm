@@ -1,6 +1,7 @@
 package donatr.domain.account;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,8 +13,10 @@ import javax.persistence.Id;
 @Entity
 @Data
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
 public class AccountEntry {
 	@Id
 	private String id;
+	private String name;
 }

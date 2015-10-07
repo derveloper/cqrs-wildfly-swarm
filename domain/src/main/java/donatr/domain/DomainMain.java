@@ -1,8 +1,6 @@
 package donatr.domain;
 
-import donatr.common.AccountCreatedEvent;
-import donatr.common.AccountServletContextListener;
-import donatr.common.CreateAccountCommand;
+import donatr.common.*;
 import donatr.domain.account.Account;
 import donatr.domain.account.AccountEntry;
 import donatr.domain.account.AccountRepository;
@@ -44,6 +42,8 @@ public class DomainMain {
 
 		JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "domain.war");
 		deployment.addClasses(DomainEventBinder.class);
+		deployment.addClasses(Command.class);
+		deployment.addClasses(AccountCommand.class);
 		deployment.addClasses(CreateAccountCommand.class);
 		deployment.addClasses(AccountCreatedEvent.class);
 		deployment.addClasses(AccountRepository.class);

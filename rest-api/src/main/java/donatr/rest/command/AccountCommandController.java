@@ -1,6 +1,7 @@
 package donatr.rest.command;
 
 import donatr.common.CreateAccountCommand;
+import donatr.common.domain.model.AccountModel;
 import donatr.rest.response.CreateAccountResponse;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -15,15 +16,16 @@ import java.util.UUID;
 @Consumes("application/json")
 public class AccountCommandController {
 	@Inject
-	CreateAccountCommand createAccountCommand;
-	@Inject
 	Event<CreateAccountCommand> createAccountCommandBus;
 
 	@POST
 	public CreateAccountResponse createAccount(CreateAccountRequest createAccountRequest) {
 		System.out.println("+++ACCOUNTS_QUERY " + createAccountRequest);
-		CreateAccountResponse response = new CreateAccountResponse(UUID.randomUUID().toString());
-		createAccountCommandBus.fire(new CreateAccountCommand(response.getId()));
+		CreateAccountResponse response = new CreateAccountResponse("ok");
+		createAccountCommandBus.fire(new CreateAccountCommand(
+				AccountModel.builder()
+						.name(createAccountRequest.getName())
+						.build()));
 		return response;
 	}
 }

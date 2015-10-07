@@ -1,5 +1,7 @@
 package donatr.eventstore;
 
+import donatr.common.DonatrEvent;
+
 import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -13,11 +15,12 @@ public class EventRepository {
 	@PersistenceContext(unitName = "MyPU", type = PersistenceContextType.TRANSACTION)
 	EntityManager entityManager;
 
-	public void save(Object event) {
+	public void save(DonatrEvent event) {
 		try {
 			UserTransaction userTxn = getUserTransaction();
 			userTxn.begin();
-			entityManager.persist(event);
+			EventEntry eventEntry = EventEntry.builder().event(event.toString()).build();
+			entityManager.persist(eventEntry);
 			userTxn.commit();
 		} catch (NotSupportedException | SystemException | HeuristicRollbackException
 				| HeuristicMixedException | RollbackException | NamingException e) {

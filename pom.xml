@@ -40,6 +40,11 @@
                 <version>${version.wildfly-swarm}</version>
             </dependency>
             <dependency>
+                <groupId>org.wildfly.swarm</groupId>
+                <artifactId>wildfly-swarm-undertow</artifactId>
+                <version>${version.wildfly-swarm}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>1.4.188</version>
@@ -58,6 +63,11 @@
                 <groupId>com.zanox.lib.rabbiteasy</groupId>
                 <artifactId>rabbiteasy-cdi</artifactId>
                 <version>1.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.4</version>
             </dependency>
             <dependency>
                 <groupId>donatr</groupId>
@@ -101,5 +111,6 @@
         <module>domain</module>
         <module>rest-api</module>
         <module>eventstore</module>
+        <module>web</module>
     </modules>
 </project>

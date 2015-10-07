@@ -27,6 +27,7 @@ public class RestApiMain {
 		deployment.addClasses(AccountCreatedEvent.class);
 		deployment.addClasses(CreateAccountRequest.class);
 		deployment.addClasses(CreateAccountResponse.class);
+		deployment.addClasses(CorsFilter.class);
 		deployment.addClasses(AccountServletContextListener.class);
 		deployment.addAsWebInfResource(new StringAsset("<beans xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
 				"    xsi:schemaLocation=\"\n" +
