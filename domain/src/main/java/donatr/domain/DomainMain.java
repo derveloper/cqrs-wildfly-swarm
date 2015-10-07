@@ -20,14 +20,14 @@ public class DomainMain {
 		Container container = new Container();
 
 		container.subsystem(new DatasourcesFraction()
-						.driver(new Driver("h2")
-								.datasourceClassName("org.h2.Driver")
-								.xaDatasourceClassName("org.h2.jdbcx.JdbcDataSource")
-								.module("com.h2database.h2"))
+						.driver(new Driver("postgres")
+								.datasourceClassName("org.postgresql.Driver")
+								.xaDatasourceClassName("org.postgresql.xa.PGXADataSource")
+								.module("org.postgresql"))
 						.datasource(new Datasource("MyDS")
-								.driver("h2")
-								.connectionURL("jdbc:h2:mem:donatr;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE")
-								.authentication("sa", "sa"))
+								.driver("postgres")
+								.connectionURL("jdbc:postgresql://localhost:5432/donatr")
+								.authentication("donatr", "donatr"))
 		);
 
 		// Prevent JPA Fraction from installing it's default datasource fraction
@@ -42,7 +42,7 @@ public class DomainMain {
 
 		JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "domain.war");
 		deployment.addClasses(DomainEventBinder.class);
-		deployment.addClasses(Command.class);
+		deployment.addClasses(DonatrEvent.class);
 		deployment.addClasses(AccountCommand.class);
 		deployment.addClasses(CreateAccountCommand.class);
 		deployment.addClasses(AccountCreatedEvent.class);

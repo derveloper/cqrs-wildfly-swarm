@@ -19,7 +19,10 @@ public class EventRepository {
 		try {
 			UserTransaction userTxn = getUserTransaction();
 			userTxn.begin();
-			EventEntry eventEntry = EventEntry.builder().event(event.toString()).build();
+			EventEntry eventEntry = EventEntry.builder()
+					.event(event.getClass().getSimpleName())
+					.payload(event.getContent())
+					.build();
 			entityManager.persist(eventEntry);
 			userTxn.commit();
 		} catch (NotSupportedException | SystemException | HeuristicRollbackException

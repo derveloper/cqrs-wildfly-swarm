@@ -8,7 +8,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import java.util.UUID;
 
 @Path("/accounts")
 @ApplicationScoped

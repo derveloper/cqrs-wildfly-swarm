@@ -12,8 +12,8 @@ import donatr.common.CreateAccountCommand;
 public class EventstoreEventBinder extends EventBinder {
 	@Override
 	protected void bindEvents() {
-		//bind(CreateAccountCommand.class)
-		//		.toQueue("eventstore");
+		bind(CreateAccountCommand.class)
+				.toQueue("eventstore");
 		bind(AccountCreatedEvent.class)
 				.toQueue("eventstore");
 	}

@@ -3,11 +3,11 @@ package donatr.common;
 import com.google.gson.Gson;
 import donatr.common.domain.model.AccountModel;
 
-public class AccountCommand extends DonatrEvent<AccountModel> {
-	public AccountCommand() {
+public class AccountEvent extends DonatrEvent<AccountModel> {
+	public AccountEvent() {
 	}
 
-	public AccountCommand(AccountModel accountModel) {
+	public AccountEvent(AccountModel accountModel) {
 		setPayload(accountModel);
 	}
 

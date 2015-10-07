@@ -1,13 +1,12 @@
 package donatr.common;
 
-import com.zanox.rabbiteasy.cdi.ContainsId;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import donatr.common.domain.model.AccountModel;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class AccountCreatedEvent implements ContainsId<String>, DonatrEvent {
-	private String id;
+public class AccountCreatedEvent extends AccountEvent {
+	public AccountCreatedEvent() {
+	}
+
+	public AccountCreatedEvent(AccountModel accountModel) {
+		super(accountModel);
+	}
 }

@@ -27,7 +27,7 @@
 
         ws.onmessage = function (message) {
             console.log(message);
-            $('body').append($('<div/>').text(message));
+            $('body').append($('<div/>').text(message.data));
         };
     });
 </script>

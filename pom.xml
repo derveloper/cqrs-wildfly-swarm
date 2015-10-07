@@ -45,6 +45,22 @@
                 <version>${version.wildfly-swarm}</version>
             </dependency>
             <dependency>
+                <groupId>org.wildfly.swarm</groupId>
+                <artifactId>wildfly-swarm-datasources</artifactId>
+                <version>${version.wildfly-swarm}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.narayana.arjunacore</groupId>
+                <artifactId>arjunacore</artifactId>
+                <version>5.1.1.Final</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>9.4-1201-jdbc41</version>
+            </dependency>
+            <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>1.4.188</version>

@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Stateless
@@ -25,6 +26,10 @@ public class Account {
 				.name(accountModel.getName())
 				.build();
 		accountRepository.save(accountEntry);
-		accountCreatedEventBus.fire(new AccountCreatedEvent(accountEntry.getId()));
+		accountCreatedEventBus.fire(new AccountCreatedEvent(AccountModel.builder()
+				.id(accountEntry.getId())
+				.name(accountEntry.getName())
+				.balance(BigDecimal.ZERO)
+				.build()));
 	}
 }

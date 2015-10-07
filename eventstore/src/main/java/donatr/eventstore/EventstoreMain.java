@@ -18,15 +18,17 @@ public class EventstoreMain {
 	public static void main(String[] args) throws Exception {
 		Container container = new Container();
 
+		container.subsystem(new TransactionsFraction(4714, 4715));
+
 		container.subsystem(new DatasourcesFraction()
-						.driver(new Driver("h2")
-								.datasourceClassName("org.h2.Driver")
-								.xaDatasourceClassName("org.h2.jdbcx.JdbcDataSource")
-								.module("com.h2database.h2"))
+						.driver(new Driver("postgres")
+								.datasourceClassName("org.postgresql.Driver")
+								.xaDatasourceClassName("org.postgresql.xa.PGXADataSource")
+								.module("org.postgresql"))
 						.datasource(new Datasource("MyDS")
-								.driver("h2")
-								.connectionURL("jdbc:h2:mem:eventstore;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE")
-								.authentication("sa", "sa"))
+								.driver("postgres")
+								.connectionURL("jdbc:postgresql://localhost:5432/donatr")
+								.authentication("donatr", "donatr"))
 		);
 
 		// Prevent JPA Fraction from installing it's default datasource fraction
@@ -34,8 +36,6 @@ public class EventstoreMain {
 						.inhibitDefaultDatasource()
 						.defaultDatasourceName("MyDS")
 		);
-
-		container.subsystem(new TransactionsFraction(4714, 4715));
 
 		container.start();
 
