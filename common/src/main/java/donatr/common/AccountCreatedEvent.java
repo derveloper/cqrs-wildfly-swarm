@@ -1,12 +1,14 @@
 package donatr.common;
 
-import donatr.common.domain.model.AccountModel;
+import lombok.*;
 
-public class AccountCreatedEvent extends AccountEvent {
-	public AccountCreatedEvent() {
-	}
-
-	public AccountCreatedEvent(AccountModel accountModel) {
-		super(accountModel);
-	}
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class AccountCreatedEvent extends DonatrEvent {
+	private String id;
+	private String name;
+	private String email;
 }

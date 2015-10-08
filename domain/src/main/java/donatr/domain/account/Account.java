@@ -2,13 +2,11 @@ package donatr.domain.account;
 
 import donatr.common.AccountCreatedEvent;
 import donatr.common.CreateAccountCommand;
-import donatr.common.domain.model.AccountModel;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Stateless
@@ -20,16 +18,15 @@ public class Account {
 
 	public void on(@Observes CreateAccountCommand command) {
 		System.out.println("+++COMMAND " + command);
-		AccountModel accountModel = command.getPayload();
 		AccountEntry accountEntry = AccountEntry.builder()
 				.id(UUID.randomUUID().toString())
-				.name(accountModel.getName())
+				.name(command.getName())
+				.email(command.getEmail())
 				.build();
 		accountRepository.save(accountEntry);
-		accountCreatedEventBus.fire(new AccountCreatedEvent(AccountModel.builder()
+		accountCreatedEventBus.fire(AccountCreatedEvent.builder()
 				.id(accountEntry.getId())
 				.name(accountEntry.getName())
-				.balance(BigDecimal.ZERO)
-				.build()));
+				.build());
 	}
 }

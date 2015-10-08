@@ -1,13 +1,14 @@
 package donatr.common;
 
-import donatr.common.domain.model.AccountModel;
+import lombok.*;
 
-public class CreateAccountCommand extends AccountCommand {
-	public CreateAccountCommand() {
-		super();
-	}
-
-	public CreateAccountCommand(AccountModel accountModel) {
-		super(accountModel);
-	}
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateAccountCommand extends DonatrEvent {
+	private String id;
+	private String name;
+	private String email;
 }

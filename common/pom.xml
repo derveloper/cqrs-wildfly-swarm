@@ -23,7 +23,6 @@
         <dependency>
             <groupId>org.wildfly.swarm</groupId>
             <artifactId>wildfly-swarm-jaxrs-weld</artifactId>
-            <version>${version.wildfly-swarm}</version>
         </dependency>
         <dependency>
             <groupId>com.zanox.lib.rabbiteasy</groupId>
@@ -40,6 +39,10 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
         </dependency>
     </dependencies>
 </project>
