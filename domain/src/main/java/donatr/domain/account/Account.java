@@ -2,31 +2,32 @@ package donatr.domain.account;
 
 import donatr.common.AccountCreatedEvent;
 import donatr.common.CreateAccountCommand;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.axonframework.commandhandling.annotation.CommandHandler;
+import org.axonframework.eventhandling.annotation.EventHandler;
+import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
+import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 
-import javax.ejb.Stateless;
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import java.util.UUID;
+@Getter @Setter
+@NoArgsConstructor
+public class Account extends AbstractAnnotatedAggregateRoot {
+	@AggregateIdentifier
+	private String id;
 
-@Stateless
-public class Account {
-	@Inject
-	Event<AccountCreatedEvent> accountCreatedEventBus;
-	@Inject
-	AccountRepository accountRepository;
-
-	public void on(@Observes CreateAccountCommand command) {
-		System.out.println("+++COMMAND " + command);
-		AccountEntry accountEntry = AccountEntry.builder()
-				.id(UUID.randomUUID().toString())
+	@CommandHandler
+	public Account(CreateAccountCommand command) {
+		System.out.println(command);
+		apply(AccountCreatedEvent.builder()
+				.id(command.getId())
 				.name(command.getName())
-				.email(command.getEmail())
-				.build();
-		accountRepository.save(accountEntry);
-		accountCreatedEventBus.fire(AccountCreatedEvent.builder()
-				.id(accountEntry.getId())
-				.name(accountEntry.getName())
-				.build());
+				.email(command.getEmail()));
+	}
+
+	@EventHandler
+	public void on(AccountCreatedEvent event) {
+		System.out.println(event);
+		this.id = event.getId();
 	}
 }

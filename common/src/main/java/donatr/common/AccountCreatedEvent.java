@@ -1,13 +1,15 @@
 package donatr.common;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class AccountCreatedEvent extends DonatrEvent {
+public class AccountCreatedEvent {
 	private String id;
 	private String name;
 	private String email;

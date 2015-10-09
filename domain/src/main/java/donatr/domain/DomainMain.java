@@ -41,9 +41,9 @@ public class DomainMain {
 		container.start();
 
 		JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "domain.war");
+		deployment.addClasses(DomainConfig.class);
+		deployment.addClasses(AxonConfiguration.class);
 		deployment.addClasses(DomainEventBinder.class);
-		deployment.addClasses(DonatrEvent.class);
-		deployment.addClasses(AccountCommand.class);
 		deployment.addClasses(CreateAccountCommand.class);
 		deployment.addClasses(AccountCreatedEvent.class);
 		deployment.addClasses(AccountRepository.class);

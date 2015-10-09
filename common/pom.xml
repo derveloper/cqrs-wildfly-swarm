@@ -25,28 +25,12 @@
 			<artifactId>wildfly-swarm-jaxrs-weld</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.zanox.lib.rabbiteasy</groupId>
-			<artifactId>rabbiteasy-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.zanox.lib.rabbiteasy</groupId>
-			<artifactId>rabbiteasy-cdi</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.dozer</groupId>
-			<artifactId>dozer</artifactId>
+			<groupId>org.axonframework</groupId>
+			<artifactId>axon-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
