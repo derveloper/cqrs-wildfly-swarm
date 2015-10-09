@@ -6,29 +6,28 @@ import com.zanox.rabbiteasy.cdi.ContainsContent;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.beanutils.BeanUtils;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 
 @Getter
 @Setter
 public abstract class DonatrEvent implements ContainsContent<String> {
 	private static final String EVENT_NAME_FIELD_NAME    = "event_name";
 	private static final String EVENT_PAYLOAD_FIELD_NAME = "event_payload";
-	private Object payload;
 
 	@Override
 	public void setContent(String content) {
 		System.out.println(content);
 		String event_payload = new Gson().fromJson(content, JsonObject.class)
 				.getAsJsonObject(EVENT_PAYLOAD_FIELD_NAME).toString();
-		payload = new Gson().fromJson(event_payload, this.getClass());
-		try {
-			BeanUtils.copyProperties(this, payload);
-		} catch (IllegalAccessException | InvocationTargetException e) {
-			e.printStackTrace();
-		}
+		Object payload = new Gson().fromJson(event_payload, this.getClass());
+		Mapper mapper = new DozerBeanMapper();
+		mapper.map(payload, this.getClass());
 	}
 
 	@Override
