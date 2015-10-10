@@ -49,6 +49,11 @@
                 <artifactId>wildfly-swarm-datasources</artifactId>
                 <version>${version.wildfly-swarm}</version>
             </dependency>
+			<dependency>
+				<groupId>org.wildfly.swarm</groupId>
+				<artifactId>wildfly-swarm-ejb</artifactId>
+				<version>${version.wildfly-swarm}</version>
+			</dependency>
             <dependency>
                 <groupId>org.jboss.narayana.arjunacore</groupId>
                 <artifactId>arjunacore</artifactId>
@@ -80,6 +85,11 @@
                 <artifactId>axon-core</artifactId>
                 <version>2.4.2</version>
             </dependency>
+			<dependency>
+				<groupId>org.axonframework</groupId>
+				<artifactId>axon-mongo</artifactId>
+				<version>2.4.2</version>
+			</dependency>
             <dependency>
                 <groupId>com.io7m.xom</groupId>
                 <artifactId>xom</artifactId>

@@ -1,9 +1,8 @@
 package donatr.domain;
 
 import donatr.common.*;
-import donatr.domain.account.Account;
-import donatr.domain.account.AccountEntry;
-import donatr.domain.account.AccountRepository;
+import donatr.common.axon.*;
+import donatr.domain.account.*;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -42,11 +41,19 @@ public class DomainMain {
 
 		JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "domain.war");
 		deployment.addClasses(DomainConfig.class);
-		deployment.addClasses(AxonConfiguration.class);
+		deployment.addClasses(DonatrCommandGateway.class);
+		deployment.addClasses(DonatrEventStore.class);
+		deployment.addClasses(DonatrSnapshotEventStore.class);
+		deployment.addClasses(DonatrCommandBus.class);
+		deployment.addClasses(DonatrEventBus.class);
+		deployment.addClasses(AccountRepository.class);
 		deployment.addClasses(DomainEventBinder.class);
 		deployment.addClasses(CreateAccountCommand.class);
+		deployment.addClasses(ChangeAccountEmailCommand.class);
+		deployment.addClasses(AccountEmailChangedEvent.class);
+		deployment.addClasses(AccountEventHandler.class);
 		deployment.addClasses(AccountCreatedEvent.class);
-		deployment.addClasses(AccountRepository.class);
+		deployment.addClasses(AccountRepositoryProducer.class);
 		deployment.addResource(Account.class);
 		deployment.addResource(AccountEntry.class);
 		deployment.addClasses(AccountServletContextListener.class);

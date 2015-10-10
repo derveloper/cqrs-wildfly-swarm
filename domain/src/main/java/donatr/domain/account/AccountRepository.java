@@ -1,18 +1,24 @@
 package donatr.domain.account;
 
+import org.axonframework.eventhandling.EventBus;
 import org.axonframework.eventsourcing.EventSourcingRepository;
+import org.axonframework.eventsourcing.SnapshotterTrigger;
 import org.axonframework.eventstore.EventStore;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.transaction.UserTransaction;
+import org.axonframework.unitofwork.DefaultUnitOfWork;
+import org.axonframework.unitofwork.UnitOfWork;
 
 public class AccountRepository extends EventSourcingRepository<Account> {
-	public AccountRepository(EventStore eventStore) {
+	public AccountRepository(EventStore eventStore, EventBus eventBus, SnapshotterTrigger snapshotterTrigger) {
 		super(Account.class, eventStore);
+		setEventBus(eventBus);
+		setSnapshotterTrigger(snapshotterTrigger);
 	}
 
-	private UserTransaction getUserTransaction() throws NamingException {
-		return (UserTransaction) new InitialContext().lookup("java:jboss/UserTransaction");
+	@Override
+	public Account load(Object aggregateIdentifier) {
+		UnitOfWork uow = DefaultUnitOfWork.startAndGet();
+		Account load = super.load(aggregateIdentifier);
+		uow.commit();
+		return load;
 	}
 }

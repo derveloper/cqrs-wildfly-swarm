@@ -41,6 +41,10 @@
 			<artifactId>wildfly-swarm-datasources</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>wildfly-swarm-ejb</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
@@ -56,10 +60,6 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.io7m.xom</groupId>
