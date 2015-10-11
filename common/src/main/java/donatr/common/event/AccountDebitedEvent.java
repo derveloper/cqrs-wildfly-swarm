@@ -9,6 +9,5 @@ import java.math.BigDecimal;
 @Builder
 public class AccountDebitedEvent {
 	private String id;
-	private String accountId;
 	private BigDecimal amount;
 }

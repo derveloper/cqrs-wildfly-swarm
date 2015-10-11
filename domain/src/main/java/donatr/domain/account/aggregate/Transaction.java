@@ -21,9 +21,7 @@ public class Transaction extends AbstractAnnotatedAggregateRoot<String> {
 	@AggregateIdentifier
 	@Id
 	private String id;
-	@AggregateIdentifier
 	private String fromAccount;
-	@AggregateIdentifier
 	private String toAccount;
 	private BigDecimal amount;
 
