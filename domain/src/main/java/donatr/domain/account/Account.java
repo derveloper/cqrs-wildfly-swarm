@@ -1,9 +1,9 @@
 package donatr.domain.account;
 
-import donatr.common.AccountCreatedEvent;
-import donatr.common.AccountEmailChangedEvent;
-import donatr.common.ChangeAccountEmailCommand;
-import donatr.common.CreateAccountCommand;
+import donatr.common.command.ChangeAccountEmailCommand;
+import donatr.common.command.CreateAccountCommand;
+import donatr.common.event.AccountCreatedEvent;
+import donatr.common.event.AccountEmailChangedEvent;
 import lombok.*;
 import org.axonframework.commandhandling.annotation.CommandHandler;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;

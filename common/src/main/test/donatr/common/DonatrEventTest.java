@@ -1,5 +1,6 @@
 package donatr.common;
 
+import donatr.common.command.CreateAccountCommand;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 

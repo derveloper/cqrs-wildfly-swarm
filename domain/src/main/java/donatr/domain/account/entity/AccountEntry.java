@@ -1,4 +1,4 @@
-package donatr.domain.account;
+package donatr.domain.account.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

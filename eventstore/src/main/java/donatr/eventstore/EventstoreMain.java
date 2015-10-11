@@ -1,8 +1,8 @@
 package donatr.eventstore;
 
-import donatr.common.AccountCreatedEvent;
 import donatr.common.AccountServletContextListener;
-import donatr.common.CreateAccountCommand;
+import donatr.common.command.CreateAccountCommand;
+import donatr.common.event.AccountCreatedEvent;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;

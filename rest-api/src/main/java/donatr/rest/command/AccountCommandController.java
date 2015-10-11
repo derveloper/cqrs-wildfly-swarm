@@ -1,6 +1,6 @@
 package donatr.rest.command;
 
-import donatr.common.CreateAccountCommand;
+import donatr.common.command.CreateAccountCommand;
 import donatr.rest.response.CreateAccountResponse;
 
 import javax.enterprise.context.ApplicationScoped;

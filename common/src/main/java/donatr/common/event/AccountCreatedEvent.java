@@ -1,4 +1,4 @@
-package donatr.common;
+package donatr.common.event;
 
 import lombok.Builder;
 import lombok.Value;

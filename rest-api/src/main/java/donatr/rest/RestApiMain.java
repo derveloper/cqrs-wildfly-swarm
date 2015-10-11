@@ -1,8 +1,8 @@
 package donatr.rest;
 
-import donatr.common.AccountCreatedEvent;
 import donatr.common.AccountServletContextListener;
-import donatr.common.CreateAccountCommand;
+import donatr.common.command.CreateAccountCommand;
+import donatr.common.event.AccountCreatedEvent;
 import donatr.rest.command.AccountCommandController;
 import donatr.rest.command.CreateAccountRequest;
 import donatr.rest.query.AccountQueryController;

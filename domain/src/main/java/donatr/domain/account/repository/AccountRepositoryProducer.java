@@ -1,5 +1,6 @@
-package donatr.domain.account;
+package donatr.domain.account.repository;
 
+import donatr.domain.account.Account;
 import org.axonframework.eventhandling.EventBus;
 import org.axonframework.eventsourcing.*;
 import org.axonframework.eventstore.EventStore;

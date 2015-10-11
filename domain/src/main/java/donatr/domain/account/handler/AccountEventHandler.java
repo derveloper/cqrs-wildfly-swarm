@@ -1,6 +1,6 @@
-package donatr.domain.account;
+package donatr.domain.account.handler;
 
-import donatr.common.AccountCreatedEvent;
+import donatr.common.event.AccountCreatedEvent;
 import org.axonframework.eventhandling.annotation.EventHandler;
 
 public class AccountEventHandler {

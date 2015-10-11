@@ -1,6 +1,6 @@
 package donatr.rest.websocket;
 
-import donatr.common.AccountCreatedEvent;
+import donatr.common.event.AccountCreatedEvent;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;

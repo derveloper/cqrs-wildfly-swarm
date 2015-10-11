@@ -1,8 +1,22 @@
 package donatr.domain;
 
-import donatr.common.*;
+import donatr.common.AccountServletContextListener;
+import donatr.common.DomainConfig;
 import donatr.common.axon.*;
-import donatr.domain.account.*;
+import donatr.common.command.ChangeAccountEmailCommand;
+import donatr.common.command.CreateAccountCommand;
+import donatr.common.event.AccountCreatedEvent;
+import donatr.common.event.AccountEmailChangedEvent;
+import donatr.domain.account.Account;
+import donatr.domain.account.command.AccountCommandResource;
+import donatr.domain.account.entity.AccountEntry;
+import donatr.domain.account.handler.AccountEventHandler;
+import donatr.domain.account.query.AccountQueryResource;
+import donatr.domain.account.repository.AccountRepository;
+import donatr.domain.account.repository.AccountRepositoryProducer;
+import donatr.domain.account.request.ChangeAccountEmailRequest;
+import donatr.domain.account.request.CreateAccountRequest;
+import donatr.domain.account.response.GetAccountResponse;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -54,8 +68,13 @@ public class DomainMain {
 		deployment.addClasses(AccountEventHandler.class);
 		deployment.addClasses(AccountCreatedEvent.class);
 		deployment.addClasses(AccountRepositoryProducer.class);
+		deployment.addClasses(CreateAccountRequest.class);
+		deployment.addClasses(ChangeAccountEmailRequest.class);
+		deployment.addClasses(GetAccountResponse.class);
 		deployment.addResource(Account.class);
 		deployment.addResource(AccountEntry.class);
+		deployment.addResource(AccountCommandResource.class);
+		deployment.addResource(AccountQueryResource.class);
 		deployment.addClasses(AccountServletContextListener.class);
 		deployment.addAsWebInfResource(new StringAsset("<beans xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
 				"    xsi:schemaLocation=\"\n" +
