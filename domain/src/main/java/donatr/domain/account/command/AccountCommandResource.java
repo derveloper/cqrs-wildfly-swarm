@@ -2,8 +2,10 @@ package donatr.domain.account.command;
 
 import donatr.common.command.ChangeAccountEmailCommand;
 import donatr.common.command.CreateAccountCommand;
+import donatr.common.command.CreateTransactionCommand;
 import donatr.domain.account.request.ChangeAccountEmailRequest;
 import donatr.domain.account.request.CreateAccountRequest;
+import donatr.domain.account.request.CreateTransactionRequest;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -41,6 +43,19 @@ public class AccountCommandResource {
 		commandGateway.send(ChangeAccountEmailCommand.builder()
 				.id(id)
 				.email(changeAccountEmailRequest.getEmail())
+				.build());
+		return Response.ok().build();
+	}
+
+	@POST
+	@Path("/transaction")
+	@Transactional
+	public Response createTransaction(CreateTransactionRequest createTransactionRequest) {
+		commandGateway.send(CreateTransactionCommand.builder()
+				.id(UUID.randomUUID().toString())
+				.fromAccount(createTransactionRequest.getFromAccount())
+				.toAccount(createTransactionRequest.getToAccount())
+				.amount(createTransactionRequest.getAmount())
 				.build());
 		return Response.ok().build();
 	}

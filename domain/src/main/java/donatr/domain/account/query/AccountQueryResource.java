@@ -1,6 +1,6 @@
 package donatr.domain.account.query;
 
-import donatr.domain.account.Account;
+import donatr.domain.account.aggregate.Account;
 import donatr.domain.account.repository.AccountRepository;
 import donatr.domain.account.response.GetAccountResponse;
 

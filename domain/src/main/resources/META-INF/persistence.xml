@@ -7,6 +7,7 @@
 	<persistence-unit name="MyPU" transaction-type="JTA">
 		<class>org.axonframework.eventstore.jpa.DomainEventEntry</class>
 		<class>org.axonframework.eventstore.jpa.SnapshotEventEntry</class>
+		<class>org.axonframework.saga.repository.jpa.SagaEntry</class>
 		<properties>
 			<property name="hibernate.show_sql" value="true"/>
 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
