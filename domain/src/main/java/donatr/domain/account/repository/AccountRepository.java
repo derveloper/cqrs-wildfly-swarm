@@ -1,25 +1,54 @@
 package donatr.domain.account.repository;
 
 import donatr.domain.account.Account;
+import lombok.Getter;
+import org.axonframework.common.jpa.EntityManagerProvider;
+import org.axonframework.common.jpa.SimpleEntityManagerProvider;
 import org.axonframework.eventhandling.EventBus;
-import org.axonframework.eventsourcing.EventSourcingRepository;
+import org.axonframework.eventsourcing.HybridJpaRepository;
 import org.axonframework.eventsourcing.SnapshotterTrigger;
 import org.axonframework.eventstore.EventStore;
+import org.axonframework.unitofwork.CurrentUnitOfWork;
 import org.axonframework.unitofwork.DefaultUnitOfWork;
 import org.axonframework.unitofwork.UnitOfWork;
 
-public class AccountRepository extends EventSourcingRepository<Account> {
-	public AccountRepository(EventStore eventStore, EventBus eventBus, SnapshotterTrigger snapshotterTrigger) {
-		super(Account.class, eventStore);
-		setEventBus(eventBus);
-		setSnapshotterTrigger(snapshotterTrigger);
+import javax.persistence.EntityManager;
+
+@Getter
+public class AccountRepository {
+	private HybridJpaRepository<Account> eventSourcingRepository;
+
+	public AccountRepository(EventStore eventStore, EventBus eventBus, SnapshotterTrigger snapshotterTrigger, EntityManager entityManager) {
+		EntityManagerProvider entityManagerProvider = new SimpleEntityManagerProvider(entityManager);
+		eventSourcingRepository = new HybridJpaRepository<>(entityManagerProvider, Account.class);
+		eventSourcingRepository.setEventBus(eventBus);
+		eventSourcingRepository.setEventStore(eventStore);
+		//eventSourcingRepository.setSnapshotterTrigger(snapshotterTrigger);
 	}
 
-	@Override
 	public Account load(Object aggregateIdentifier) {
-		UnitOfWork uow = DefaultUnitOfWork.startAndGet();
-		Account load = super.load(aggregateIdentifier);
+		UnitOfWork uow;
+		if(!CurrentUnitOfWork.isStarted()) {
+			uow = DefaultUnitOfWork.startAndGet();
+		}
+		else {
+			uow = CurrentUnitOfWork.get();
+		}
+		Account account = eventSourcingRepository.load(aggregateIdentifier, null);
 		uow.commit();
-		return load;
+		return account;
+	}
+
+	public Account load(Object aggregateIdentifier, Long version) {
+		UnitOfWork uow;
+		if(!CurrentUnitOfWork.isStarted()) {
+			uow = DefaultUnitOfWork.startAndGet();
+		}
+		else {
+			uow = CurrentUnitOfWork.get();
+		}
+		Account account = eventSourcingRepository.load(aggregateIdentifier, version);
+		uow.commit();
+		return account;
 	}
 }

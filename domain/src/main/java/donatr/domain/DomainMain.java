@@ -2,7 +2,10 @@ package donatr.domain;
 
 import donatr.common.AccountServletContextListener;
 import donatr.common.DomainConfig;
-import donatr.common.axon.*;
+import donatr.common.axon.DonatrCommandBus;
+import donatr.common.axon.DonatrCommandGateway;
+import donatr.common.axon.DonatrEventBus;
+import donatr.common.axon.DonatrEventStore;
 import donatr.common.command.ChangeAccountEmailCommand;
 import donatr.common.command.CreateAccountCommand;
 import donatr.common.event.AccountCreatedEvent;
@@ -57,7 +60,6 @@ public class DomainMain {
 		deployment.addClasses(DomainConfig.class);
 		deployment.addClasses(DonatrCommandGateway.class);
 		deployment.addClasses(DonatrEventStore.class);
-		deployment.addClasses(DonatrSnapshotEventStore.class);
 		deployment.addClasses(DonatrCommandBus.class);
 		deployment.addClasses(DonatrEventBus.class);
 		deployment.addClasses(AccountRepository.class);

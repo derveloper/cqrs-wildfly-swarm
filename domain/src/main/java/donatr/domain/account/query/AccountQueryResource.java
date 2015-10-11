@@ -27,6 +27,20 @@ public class AccountQueryResource {
 				.id(account.getId())
 				.email(account.getEmail())
 				.name(account.getName())
+				.version(account.getVersion())
+				.build();
+	}
+
+	@GET
+	@Path("/{id}/{version}")
+	@Transactional
+	public GetAccountResponse getAccount(@PathParam("id") String id, @PathParam("version") Long version) {
+		Account account = accountRepository.load(id, version);
+		return GetAccountResponse.builder()
+				.id(account.getId())
+				.email(account.getEmail())
+				.name(account.getName())
+				.version(account.getVersion())
 				.build();
 	}
 }

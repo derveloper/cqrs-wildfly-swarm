@@ -13,4 +13,5 @@ public class GetAccountResponse {
 	private String id;
 	private String name;
 	private String email;
+	private Long version;
 }

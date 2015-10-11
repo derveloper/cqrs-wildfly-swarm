@@ -10,19 +10,23 @@ import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 @Getter @Setter
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+@Entity
 public class Account extends AbstractAnnotatedAggregateRoot<String> {
 	@AggregateIdentifier
+	@Id
 	private String id;
 	private String name;
 	private String email;
 
 	@CommandHandler
 	public Account(CreateAccountCommand command) {
-		System.out.println(command);
 		apply(AccountCreatedEvent.builder()
 				.id(command.getId())
 				.name(command.getName())
@@ -38,7 +42,6 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 
 	@EventSourcingHandler
 	public void on(AccountCreatedEvent event) {
-		System.out.println("Account " + event);
 		this.id = event.getId();
 		this.name = event.getName();
 		this.email = event.getEmail();
@@ -46,7 +49,6 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 
 	@EventSourcingHandler
 	public void on(AccountEmailChangedEvent event) {
-		System.out.println("Account " + event);
 		this.email = event.getEmail();
 	}
 

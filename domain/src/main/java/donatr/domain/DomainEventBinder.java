@@ -42,7 +42,7 @@ public class DomainEventBinder implements DomainConfig {
 	public void initialize() {
 		System.out.println("init handlers");
 		itemId = UUID.randomUUID().toString();
-		AggregateAnnotationCommandHandler.subscribe(Account.class, eventRepository, commandBus);
+		AggregateAnnotationCommandHandler.subscribe(Account.class, eventRepository.getEventSourcingRepository(), commandBus);
 		AnnotationEventListenerAdapter.subscribe(new AccountEventHandler(), eventBus);
 	}
 

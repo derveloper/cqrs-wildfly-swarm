@@ -11,6 +11,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,9 @@ import java.util.List;
 
 @Singleton
 public class AccountRepositoryProducer {
+	@PersistenceContext
+	EntityManager entityManager;
+
 	@Inject
 	EventStore eventStore;
 
@@ -31,7 +36,7 @@ public class AccountRepositoryProducer {
 	@Produces @Singleton
 	public AccountRepository getEventRepository() {
 		System.out.println("init repository");
-		return new AccountRepository(eventStore, eventBus, getSnapshotterTrigger());
+		return new AccountRepository(eventStore, eventBus, getSnapshotterTrigger(), entityManager);
 	}
 
 	public SnapshotterTrigger getSnapshotterTrigger() {
