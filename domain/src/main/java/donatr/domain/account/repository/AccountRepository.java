@@ -27,16 +27,7 @@ public class AccountRepository {
 	}
 
 	public Account load(Object aggregateIdentifier) {
-		UnitOfWork uow;
-		if(!CurrentUnitOfWork.isStarted()) {
-			uow = DefaultUnitOfWork.startAndGet();
-		}
-		else {
-			uow = CurrentUnitOfWork.get();
-		}
-		Account account = eventSourcingRepository.load(aggregateIdentifier, null);
-		uow.commit();
-		return account;
+		return load(aggregateIdentifier, null);
 	}
 
 	public Account load(Object aggregateIdentifier, Long version) {
