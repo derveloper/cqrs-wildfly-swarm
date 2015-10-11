@@ -12,7 +12,6 @@ import donatr.common.event.AccountCreatedEvent;
 import donatr.common.event.AccountEmailChangedEvent;
 import donatr.domain.account.Account;
 import donatr.domain.account.command.AccountCommandResource;
-import donatr.domain.account.entity.AccountEntry;
 import donatr.domain.account.handler.AccountEventHandler;
 import donatr.domain.account.query.AccountQueryResource;
 import donatr.domain.account.repository.AccountRepository;
@@ -74,7 +73,6 @@ public class DomainMain {
 		deployment.addClasses(ChangeAccountEmailRequest.class);
 		deployment.addClasses(GetAccountResponse.class);
 		deployment.addResource(Account.class);
-		deployment.addResource(AccountEntry.class);
 		deployment.addResource(AccountCommandResource.class);
 		deployment.addResource(AccountQueryResource.class);
 		deployment.addClasses(AccountServletContextListener.class);
