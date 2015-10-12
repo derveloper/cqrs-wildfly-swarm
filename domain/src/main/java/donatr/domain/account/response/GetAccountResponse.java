@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,6 +16,7 @@ public class GetAccountResponse {
 	private String id;
 	private String name;
 	private String email;
+	private BigDecimal balance;
 	private AccountType accountType;
 	private Long version;
 }

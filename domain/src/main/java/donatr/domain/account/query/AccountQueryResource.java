@@ -10,6 +10,8 @@ import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import static donatr.domain.account.response.ResponseHelper.createGetAccountResponse;
+
 @ApplicationScoped
 @Path("/accounts")
 @Produces(MediaType.APPLICATION_JSON)
@@ -23,26 +25,6 @@ public class AccountQueryResource {
 	@Transactional
 	public GetAccountResponse getAccount(@PathParam("id") String id) {
 		Account account = accountRepository.load(id);
-		return GetAccountResponse.builder()
-				.id(account.getId())
-				.email(account.getEmail())
-				.name(account.getName())
-				.accountType(account.getAccountType())
-				.version(account.getVersion())
-				.build();
-	}
-
-	@GET
-	@Path("/{id}/{version}")
-	@Transactional
-	public GetAccountResponse getAccount(@PathParam("id") String id, @PathParam("version") Long version) {
-		Account account = accountRepository.load(id, version);
-		return GetAccountResponse.builder()
-				.id(account.getId())
-				.email(account.getEmail())
-				.name(account.getName())
-				.accountType(account.getAccountType())
-				.version(account.getVersion())
-				.build();
+		return createGetAccountResponse(account);
 	}
 }
