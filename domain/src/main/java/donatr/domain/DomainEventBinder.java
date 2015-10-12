@@ -1,6 +1,6 @@
 package donatr.domain;
 
-import donatr.common.DomainConfig;
+import donatr.common.axon.DomainConfig;
 import donatr.domain.account.aggregate.Account;
 import donatr.domain.account.aggregate.Transaction;
 import donatr.domain.account.handler.AccountEventHandler;

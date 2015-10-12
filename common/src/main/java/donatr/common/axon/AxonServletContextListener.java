@@ -1,4 +1,4 @@
-package donatr.common;
+package donatr.common.axon;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContextEvent;
@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebListener;
 
 
 @WebListener
-public class AccountServletContextListener implements ServletContextListener {
+public class AxonServletContextListener implements ServletContextListener {
 	@Inject
 	DomainConfig domainConfig;
 

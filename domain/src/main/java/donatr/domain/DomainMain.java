@@ -1,7 +1,7 @@
 package donatr.domain;
 
-import donatr.common.AccountServletContextListener;
-import donatr.common.DomainConfig;
+import donatr.common.axon.AxonServletContextListener;
+import donatr.common.axon.DomainConfig;
 import donatr.common.axon.DonatrCommandBus;
 import donatr.common.axon.DonatrCommandGateway;
 import donatr.common.axon.DonatrEventBus;
@@ -90,7 +90,7 @@ public class DomainMain {
 		deployment.addResource(Transaction.class);
 		deployment.addResource(AccountCommandResource.class);
 		deployment.addResource(AccountQueryResource.class);
-		deployment.addClasses(AccountServletContextListener.class);
+		deployment.addClasses(AxonServletContextListener.class);
 		deployment.addAsWebInfResource(new StringAsset("<beans xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
 				"    xsi:schemaLocation=\"\n" +
 				"        http://xmlns.jcp.org/xml/ns/javaee\n" +
