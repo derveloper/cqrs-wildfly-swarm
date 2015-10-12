@@ -1,4 +1,4 @@
-package donatr.common.command;
+package donatr.domain.account.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

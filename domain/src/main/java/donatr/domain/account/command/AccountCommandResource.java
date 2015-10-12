@@ -1,9 +1,7 @@
 package donatr.domain.account.command;
 
-import donatr.common.command.ChangeAccountEmailCommand;
-import donatr.common.command.CreateAccountCommand;
-import donatr.common.command.CreateTransactionCommand;
 import donatr.domain.account.request.ChangeAccountEmailRequest;
+import donatr.domain.account.request.ChangeAccountTypeRequest;
 import donatr.domain.account.request.CreateAccountRequest;
 import donatr.domain.account.request.CreateTransactionRequest;
 import org.axonframework.commandhandling.gateway.CommandGateway;
@@ -43,6 +41,17 @@ public class AccountCommandResource {
 		commandGateway.send(ChangeAccountEmailCommand.builder()
 				.id(id)
 				.email(changeAccountEmailRequest.getEmail())
+				.build());
+		return Response.ok().build();
+	}
+
+	@POST
+	@Path("/{id}/type")
+	@Transactional
+	public Response changeAccountType(@PathParam("id") String id, ChangeAccountTypeRequest changeAccountTypeRequest) {
+		commandGateway.send(ChangeAccountTypeCommand.builder()
+				.id(id)
+				.type(changeAccountTypeRequest.getType())
 				.build());
 		return Response.ok().build();
 	}

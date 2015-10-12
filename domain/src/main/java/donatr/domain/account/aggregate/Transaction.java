@@ -1,7 +1,7 @@
 package donatr.domain.account.aggregate;
 
-import donatr.common.command.CreateTransactionCommand;
-import donatr.common.event.TransactionCreatedEvent;
+import donatr.domain.account.command.CreateTransactionCommand;
+import donatr.domain.account.event.TransactionCreatedEvent;
 import lombok.*;
 import org.axonframework.commandhandling.annotation.CommandHandler;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;

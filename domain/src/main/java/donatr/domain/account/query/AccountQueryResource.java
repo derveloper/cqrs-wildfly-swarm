@@ -40,6 +40,7 @@ public class AccountQueryResource {
 				.id(account.getId())
 				.email(account.getEmail())
 				.name(account.getName())
+				.type(account.getType())
 				.version(account.getVersion())
 				.build();
 	}

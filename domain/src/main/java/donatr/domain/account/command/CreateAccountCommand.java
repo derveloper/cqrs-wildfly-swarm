@@ -1,4 +1,4 @@
-package donatr.common.command;
+package donatr.domain.account.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +10,9 @@ import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier;
 @Setter
 @Builder
 @AllArgsConstructor
-public class ChangeAccountEmailCommand {
+public class CreateAccountCommand {
 	@TargetAggregateIdentifier
 	private String id;
+	private String name;
 	private String email;
 }

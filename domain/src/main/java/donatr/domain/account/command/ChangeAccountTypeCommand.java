@@ -1,19 +1,18 @@
-package donatr.common.command;
+package donatr.domain.account.command;
 
+import donatr.domain.account.aggregate.AccountType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier;
 
-import java.math.BigDecimal;
-
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
-public class CreditAccountCommand {
+public class ChangeAccountTypeCommand {
 	@TargetAggregateIdentifier
 	private String id;
-	private BigDecimal amount;
+	private AccountType type;
 }

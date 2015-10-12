@@ -1,13 +1,7 @@
 package donatr.domain.account.aggregate;
 
-import donatr.common.command.ChangeAccountEmailCommand;
-import donatr.common.command.CreateAccountCommand;
-import donatr.common.command.CreditAccountCommand;
-import donatr.common.command.DebitAccountCommand;
-import donatr.common.event.AccountCreatedEvent;
-import donatr.common.event.AccountCreditedEvent;
-import donatr.common.event.AccountDebitedEvent;
-import donatr.common.event.AccountEmailChangedEvent;
+import donatr.domain.account.command.*;
+import donatr.domain.account.event.*;
 import lombok.*;
 import org.axonframework.commandhandling.annotation.CommandHandler;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
@@ -16,6 +10,7 @@ import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import java.math.BigDecimal;
 
 @Getter @Setter
@@ -30,6 +25,7 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 	private String name;
 	private String email;
 	private BigDecimal balance;
+	private AccountType type;
 
 	@CommandHandler
 	public Account(CreateAccountCommand command) {
@@ -44,6 +40,13 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 		apply(AccountEmailChangedEvent.builder()
 			.id(command.getId())
 			.email(command.getEmail()).build());
+	}
+
+	@CommandHandler
+	public void on(ChangeAccountTypeCommand command) {
+		apply(AccountTypeChangedEvent.builder()
+				.id(command.getId())
+				.type(command.getType()).build());
 	}
 
 	@CommandHandler
@@ -74,6 +77,11 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 	}
 
 	@EventSourcingHandler
+	public void on(AccountTypeChangedEvent event) {
+		this.type = event.getType();
+	}
+
+	@EventSourcingHandler
 	public void on(AccountCreditedEvent event) {
 		this.balance = balance.add(event.getAmount());
 	}
@@ -83,8 +91,8 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 		this.balance = balance.subtract(event.getAmount());
 	}
 
-	@Override
-	public String getIdentifier() {
-		return id;
+	@PrePersist
+	public void setDefaults() {
+		if(type == null) type = AccountType.USER;
 	}
 }

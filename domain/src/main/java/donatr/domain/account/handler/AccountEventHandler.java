@@ -1,8 +1,8 @@
 package donatr.domain.account.handler;
 
-import donatr.common.command.CreditAccountCommand;
-import donatr.common.command.DebitAccountCommand;
-import donatr.common.event.TransactionCreatedEvent;
+import donatr.domain.account.command.CreditAccountCommand;
+import donatr.domain.account.command.DebitAccountCommand;
+import donatr.domain.account.event.TransactionCreatedEvent;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.annotation.EventHandler;
 
