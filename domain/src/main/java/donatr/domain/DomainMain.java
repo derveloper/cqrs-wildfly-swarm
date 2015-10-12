@@ -30,7 +30,7 @@ import org.wildfly.swarm.jaxrs.JAXRSArchive;
 import org.wildfly.swarm.jpa.JPAFraction;
 import org.wildfly.swarm.transactions.TransactionsFraction;
 
-public class DomainMain {
+class DomainMain {
 	public static void main(String[] args) throws Exception {
 		Container container = new Container();
 

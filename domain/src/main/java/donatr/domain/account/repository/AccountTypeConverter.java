@@ -25,7 +25,7 @@ public class AccountTypeConverter implements AttributeConverter<AccountType, Str
 		return AccountType.parse(type);
 	}
 
-	final ObjectMapper mapper = new ObjectMapper();
+	private final ObjectMapper mapper = new ObjectMapper();
 
 	public AccountTypeConverter() {
 

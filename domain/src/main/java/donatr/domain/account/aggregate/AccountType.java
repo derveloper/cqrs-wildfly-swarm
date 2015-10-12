@@ -8,7 +8,7 @@ public enum AccountType {
 	BANK("bank"),
 	BEEN("bean");
 
-	private String value;
+	private final String value;
 
 	AccountType(String value) { this.value = value; }
 

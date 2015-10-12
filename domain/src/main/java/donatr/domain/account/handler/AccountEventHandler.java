@@ -7,7 +7,7 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.annotation.EventHandler;
 
 public class AccountEventHandler {
-	private CommandGateway commandGateway;
+	private final CommandGateway commandGateway;
 
 	public AccountEventHandler(CommandGateway commandGateway) {
 		this.commandGateway = commandGateway;

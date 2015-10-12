@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 @Singleton
 public class DonatrRepositoryProducer {
 	@PersistenceContext
-	EntityManager entityManager;
+	private EntityManager entityManager;
 
 	@Inject
 	EventStore eventStore;

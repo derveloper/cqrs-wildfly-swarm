@@ -15,13 +15,14 @@ import javax.persistence.PersistenceContext;
 @Singleton
 public class DonatrEventStore {
 	@PersistenceContext
-	EntityManager entityManager;
+	private EntityManager entityManager;
 
 
 	@Produces @Singleton
 	public EventStore getEventStore() {
 		EntityManagerProvider entityManagerProvider = new SimpleEntityManagerProvider(entityManager);
-		EventEntryFactory eventEntryFactory = new DefaultEventEntryFactory(true);
+		DefaultEventEntryFactory eventEntryFactory = new DefaultEventEntryFactory(true);
+		@SuppressWarnings("unchecked")
 		EventEntryStore eventEntryStore = new DefaultEventEntryStore(eventEntryFactory);
 		Serializer serializer = new JacksonSerializer();
 		JpaEventStore jpaEventStore = new JpaEventStore(entityManagerProvider, serializer, eventEntryStore);

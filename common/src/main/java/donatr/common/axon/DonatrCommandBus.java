@@ -10,8 +10,8 @@ import javax.naming.NamingException;
 @Singleton
 public class DonatrCommandBus {
 	@Produces @Singleton
-	public CommandBus getCommandBus() throws NamingException {
-		SimpleCommandBus simpleCommandBus = new SimpleCommandBus();
-		return simpleCommandBus;
+	public CommandBus getCommandBus()
+	{
+		return new SimpleCommandBus();
 	}
 }

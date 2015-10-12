@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
 
 @Getter
 public class DonatrRepository<T extends AggregateRoot> {
-	private HybridJpaRepository<T> eventSourcingRepository;
+	private final HybridJpaRepository<T> eventSourcingRepository;
 
 	public DonatrRepository(EventStore eventStore, EventBus eventBus, EntityManager entityManager, Class<T> clazz) {
 		EntityManagerProvider entityManagerProvider = new SimpleEntityManagerProvider(entityManager);
