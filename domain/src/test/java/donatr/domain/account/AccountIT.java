@@ -31,7 +31,7 @@ public class AccountIT {
 	public void setup() {
 		client = ClientBuilder.newBuilder()
 				.register(JacksonJsonProvider.class).build();
-		target = client.target("http://localhost:8080").path("accounts");
+		target = client.target("http://localhost:8080").path("api").path("accounts");
 	}
 
 	@BeforeClass

@@ -10,6 +10,7 @@ import org.wildfly.swarm.datasources.Driver;
 import org.wildfly.swarm.jaxrs.JAXRSArchive;
 import org.wildfly.swarm.jpa.JPAFraction;
 import org.wildfly.swarm.transactions.TransactionsFraction;
+import org.wildfly.swarm.undertow.WARArchive;
 
 public class DomainMain {
 	public static void main(String[] args) throws Exception {
@@ -36,7 +37,12 @@ public class DomainMain {
 
 		container.start();
 
+		WARArchive warArchive = ShrinkWrap.create( WARArchive.class );
+
+		warArchive.staticContent("/", "public");
+
 		JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "domain.war");
+		deployment.setContextRoot("/api");
 		deployment.addPackages(true, "donatr.common");
 		deployment.addPackages(true, "donatr.domain");
 		deployment.addAsWebInfResource(new StringAsset("<beans xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
@@ -47,6 +53,6 @@ public class DomainMain {
 		deployment.addAsWebInfResource(new ClassLoaderAsset("META-INF/persistence.xml", DomainMain.class.getClassLoader()), "classes/META-INF/persistence.xml");
 		deployment.addAllDependencies();
 
-		container.deploy(deployment);
+		container.deploy(deployment).deploy(warArchive);
 	}
 }
