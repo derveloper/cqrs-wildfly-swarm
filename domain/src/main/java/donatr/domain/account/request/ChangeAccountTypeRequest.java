@@ -5,5 +5,5 @@ import lombok.Data;
 
 @Data
 public class ChangeAccountTypeRequest {
-	private AccountType type;
+	private AccountType accountType;
 }

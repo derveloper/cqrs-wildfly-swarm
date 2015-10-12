@@ -2,12 +2,14 @@ package donatr.domain.account.aggregate;
 
 import donatr.domain.account.command.*;
 import donatr.domain.account.event.*;
+import donatr.domain.account.repository.AccountTypeConverter;
 import lombok.*;
 import org.axonframework.commandhandling.annotation.CommandHandler;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
@@ -25,7 +27,8 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 	private String name;
 	private String email;
 	private BigDecimal balance;
-	private AccountType type;
+	@Convert(converter = AccountTypeConverter.class)
+	private AccountType accountType;
 
 	@CommandHandler
 	public Account(CreateAccountCommand command) {
@@ -46,7 +49,7 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 	public void on(ChangeAccountTypeCommand command) {
 		apply(AccountTypeChangedEvent.builder()
 				.id(command.getId())
-				.type(command.getType()).build());
+				.accountType(command.getAccountType()).build());
 	}
 
 	@CommandHandler
@@ -78,7 +81,7 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 
 	@EventSourcingHandler
 	public void on(AccountTypeChangedEvent event) {
-		this.type = event.getType();
+		this.accountType = event.getAccountType();
 	}
 
 	@EventSourcingHandler
@@ -93,6 +96,6 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 
 	@PrePersist
 	public void setDefaults() {
-		if(type == null) type = AccountType.USER;
+		if(accountType == null) accountType = AccountType.USER;
 	}
 }

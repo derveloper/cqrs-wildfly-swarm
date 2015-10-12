@@ -51,7 +51,7 @@ public class AccountCommandResource {
 	public Response changeAccountType(@PathParam("id") String id, ChangeAccountTypeRequest changeAccountTypeRequest) {
 		commandGateway.send(ChangeAccountTypeCommand.builder()
 				.id(id)
-				.type(changeAccountTypeRequest.getType())
+				.accountType(changeAccountTypeRequest.getAccountType())
 				.build());
 		return Response.ok().build();
 	}

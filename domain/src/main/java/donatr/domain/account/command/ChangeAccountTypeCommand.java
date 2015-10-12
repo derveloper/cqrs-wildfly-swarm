@@ -14,5 +14,5 @@ import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier;
 public class ChangeAccountTypeCommand {
 	@TargetAggregateIdentifier
 	private String id;
-	private AccountType type;
+	private AccountType accountType;
 }

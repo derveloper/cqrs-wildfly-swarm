@@ -8,5 +8,5 @@ import lombok.Value;
 @Builder
 public class AccountTypeChangedEvent {
 	private final String id;
-	private final AccountType type;
+	private final AccountType accountType;
 }

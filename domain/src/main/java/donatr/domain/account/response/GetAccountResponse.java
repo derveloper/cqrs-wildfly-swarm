@@ -14,6 +14,6 @@ public class GetAccountResponse {
 	private String id;
 	private String name;
 	private String email;
-	private AccountType type;
+	private AccountType accountType;
 	private Long version;
 }
