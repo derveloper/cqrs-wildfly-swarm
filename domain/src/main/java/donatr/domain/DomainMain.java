@@ -3,39 +3,56 @@ package donatr.domain;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.wildfly.swarm.ArtifactManager;
+import org.wildfly.swarm.config.datasources.subsystem.dataSource.DataSource;
+import org.wildfly.swarm.config.datasources.subsystem.jdbcDriver.JdbcDriver;
 import org.wildfly.swarm.container.Container;
-import org.wildfly.swarm.datasources.Datasource;
+import org.wildfly.swarm.container.JARArchive;
+import org.wildfly.swarm.datasources.DatasourceArchive;
 import org.wildfly.swarm.datasources.DatasourcesFraction;
-import org.wildfly.swarm.datasources.Driver;
 import org.wildfly.swarm.jaxrs.JAXRSArchive;
 import org.wildfly.swarm.jpa.JPAFraction;
 import org.wildfly.swarm.transactions.TransactionsFraction;
 import org.wildfly.swarm.undertow.WARArchive;
 
-class DomainMain {
+public class DomainMain {
 	public static void main(String[] args) throws Exception {
 		Container container = new Container();
 
-		container.subsystem(new DatasourcesFraction()
-						.driver(new Driver("postgres")
-								.datasourceClassName("org.postgresql.Driver")
-								.xaDatasourceClassName("org.postgresql.xa.PGXADataSource")
-								.module("org.postgresql"))
-						.datasource(new Datasource("MyDS")
-								.driver("postgres")
-								.connectionURL("jdbc:postgresql://localhost:5432/donatr")
-								.authentication("donatr", "donatr"))
-		);
+		/*container.subsystem(new DatasourcesFraction()
+						.jdbcDriver(new JdbcDriver("postgresql")
+								.driverName("postgresql")
+								.driverDatasourceClassName("org.postgresql.Driver")
+								.xaDatasourceClass("org.postgresql.xa.PGXADataSource")
+								.driverModuleName("org.postgresql"))
+						.dataSource(new DataSource("MyDS")
+								.driverName("postgresql")
+								.connectionUrl("jdbc:postgresql://localhost:5432/donatr")
+								.userName("donatr")
+								.password("donatr"))
+		);*/
 
 		// Prevent JPA Fraction from installing it's default datasource fraction
 		container.fraction(new JPAFraction()
 						.inhibitDefaultDatasource()
-						.defaultDatasourceName("MyDS")
+						.defaultDatasource("MyDS")
 		);
 
-		container.subsystem(new TransactionsFraction(4712, 4713));
+		//container.subsystem(new TransactionsFraction());
 
 		container.start();
+
+		container
+				.deploy(ArtifactManager.artifact("org.postgresql:postgresql:9.4-1201-jdbc41", "postgresql"));
+
+		JARArchive dsArchive = ShrinkWrap.create(JARArchive.class);
+		dsArchive.as(DatasourceArchive.class).datasource(
+				new DataSource("MyDS")
+						.driverName("postgresql")
+						.connectionUrl("jdbc:postgresql://localhost:5432/donatr")
+						.userName("donatr")
+						.password("donatr")
+		);
 
 		WARArchive warArchive = ShrinkWrap.create( WARArchive.class );
 
