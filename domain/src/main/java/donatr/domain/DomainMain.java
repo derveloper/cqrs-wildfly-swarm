@@ -3,12 +3,9 @@ package donatr.domain;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
-import org.wildfly.swarm.ArtifactManager;
 import org.wildfly.swarm.config.datasources.subsystem.dataSource.DataSource;
 import org.wildfly.swarm.config.datasources.subsystem.jdbcDriver.JdbcDriver;
 import org.wildfly.swarm.container.Container;
-import org.wildfly.swarm.container.JARArchive;
-import org.wildfly.swarm.datasources.DatasourceArchive;
 import org.wildfly.swarm.datasources.DatasourcesFraction;
 import org.wildfly.swarm.jaxrs.JAXRSArchive;
 import org.wildfly.swarm.jpa.JPAFraction;
@@ -19,18 +16,18 @@ public class DomainMain {
 	public static void main(String[] args) throws Exception {
 		Container container = new Container();
 
-		/*container.subsystem(new DatasourcesFraction()
+		container.subsystem(new DatasourcesFraction()
 						.jdbcDriver(new JdbcDriver("postgresql")
 								.driverName("postgresql")
 								.driverDatasourceClassName("org.postgresql.Driver")
 								.xaDatasourceClass("org.postgresql.xa.PGXADataSource")
 								.driverModuleName("org.postgresql"))
-						.dataSource(new DataSource("MyDS")
+						.dataSource(new DataSource("MyDS").jndiName("java:jboss/naming/context/MyDS")
 								.driverName("postgresql")
 								.connectionUrl("jdbc:postgresql://localhost:5432/donatr")
 								.userName("donatr")
 								.password("donatr"))
-		);*/
+		);
 
 		// Prevent JPA Fraction from installing it's default datasource fraction
 		container.fraction(new JPAFraction()
@@ -38,25 +35,24 @@ public class DomainMain {
 						.defaultDatasource("MyDS")
 		);
 
-		//container.subsystem(new TransactionsFraction());
+		container.subsystem(new TransactionsFraction());
 
 		container.start();
 
-		container
-				.deploy(ArtifactManager.artifact("org.postgresql:postgresql:9.4-1201-jdbc41", "postgresql"));
+		/*container
+				.deploy(ArtifactManager.artifact("org.postgresql:postgresql:9.4-1201-jdbc41", "postgresql"));*/
 
-		JARArchive dsArchive = ShrinkWrap.create(JARArchive.class);
+		/*JARArchive dsArchive = ShrinkWrap.create(JARArchive.class, "datasource.war");
 		dsArchive.as(DatasourceArchive.class).datasource(
 				new DataSource("MyDS")
 						.driverName("postgresql")
+						.datasourceClass("org.postgresql.Driver")
 						.connectionUrl("jdbc:postgresql://localhost:5432/donatr")
 						.userName("donatr")
 						.password("donatr")
 		);
+		container.deploy(dsArchive);*/
 
-		WARArchive warArchive = ShrinkWrap.create( WARArchive.class );
-
-		warArchive.staticContent("/", "public");
 
 		JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "domain.war");
 		deployment.setContextRoot("/api");
@@ -69,7 +65,10 @@ public class DomainMain {
 				"</beans>"), "beans.xml");
 		deployment.addAsWebInfResource(new ClassLoaderAsset("META-INF/persistence.xml", DomainMain.class.getClassLoader()), "classes/META-INF/persistence.xml");
 		deployment.addAllDependencies();
+		container.deploy(deployment);
 
-		container.deploy(deployment).deploy(warArchive);
+		WARArchive warArchive = ShrinkWrap.create( WARArchive.class, "static.war" );
+		warArchive.staticContent("/", "public");
+		container.deploy(warArchive);
 	}
 }
