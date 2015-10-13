@@ -1,13 +1,11 @@
 package donatr.domain.account;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import donatr.domain.DomainMain;
 import donatr.domain.account.request.ChangeAccountEmailRequest;
 import donatr.domain.account.request.CreateAccountRequest;
 import donatr.domain.account.request.CreateTransactionRequest;
 import donatr.domain.account.response.GetAccountResponse;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.ws.rs.client.Client;
@@ -32,11 +30,6 @@ public class AccountIT {
 		client = ClientBuilder.newBuilder()
 				.register(JacksonJsonProvider.class).build();
 		target = client.target("http://localhost:8080").path("api").path("accounts");
-	}
-
-	@BeforeClass
-	public static void beforeClass() throws Exception {
-		DomainMain.main(null);
 	}
 
 	private String createAccount(String name, String email) {

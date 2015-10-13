@@ -20,40 +20,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>wildfly-swarm-jaxrs-weld</artifactId>
-                <version>${version.wildfly-swarm}</version>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>7.0</version>
+                <scope>provided</scope>
             </dependency>
-            <dependency>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>wildfly-swarm-jpa</artifactId>
-                <version>${version.wildfly-swarm}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>wildfly-swarm-msc</artifactId>
-                <version>${version.wildfly-swarm}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>wildfly-swarm-transactions</artifactId>
-                <version>${version.wildfly-swarm}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>wildfly-swarm-undertow</artifactId>
-                <version>${version.wildfly-swarm}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>wildfly-swarm-datasources</artifactId>
-                <version>${version.wildfly-swarm}</version>
-            </dependency>
-			<dependency>
-				<groupId>org.wildfly.swarm</groupId>
-				<artifactId>wildfly-swarm-ejb</artifactId>
-				<version>${version.wildfly-swarm}</version>
-			</dependency>
             <dependency>
                 <groupId>org.jboss.narayana.arjunacore</groupId>
                 <artifactId>arjunacore</artifactId>
@@ -64,11 +35,6 @@
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>9.4-1201-jdbc41</version>
-            </dependency>
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>1.4.188</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -148,19 +114,6 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>wildfly-swarm-plugin</artifactId>
-                <version>${version.wildfly-swarm}</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -172,19 +125,6 @@
                         <source>1.8</source>
                         <target>1.8</target>
                     </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.wildfly.swarm</groupId>
-                    <artifactId>wildfly-swarm-plugin</artifactId>
-                    <version>${version.wildfly-swarm}</version>
-                    <executions>
-                        <execution>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>package</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
