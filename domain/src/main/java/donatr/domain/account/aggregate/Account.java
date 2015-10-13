@@ -12,7 +12,6 @@ import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
 import java.math.BigDecimal;
 
 @Getter @Setter
@@ -72,6 +71,7 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 		this.name = event.getName();
 		this.email = event.getEmail();
 		this.balance = BigDecimal.ZERO;
+		this.accountType = AccountType.USER;
 	}
 
 	@EventSourcingHandler
@@ -92,10 +92,5 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 	@EventSourcingHandler
 	public void on(AccountDebitedEvent event) {
 		this.balance = balance.subtract(event.getAmount());
-	}
-
-	@PrePersist
-	public void setDefaults() {
-		if(accountType == null) accountType = AccountType.USER;
 	}
 }

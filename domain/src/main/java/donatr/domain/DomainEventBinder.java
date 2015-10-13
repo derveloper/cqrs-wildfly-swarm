@@ -11,7 +11,6 @@ import org.axonframework.commandhandling.annotation.AggregateAnnotationCommandHa
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventBus;
 import org.axonframework.eventhandling.annotation.AnnotationEventListenerAdapter;
-import org.axonframework.saga.SagaRepository;
 
 import javax.ejb.Singleton;
 import javax.inject.Inject;
@@ -33,8 +32,6 @@ public class DomainEventBinder implements DomainConfig {
 	@Inject
 	TransactionRepository transactionRepository;
 
-	@Inject
-	SagaRepository sagaRepository;
 
 	@Override
 	public void initialize() {
