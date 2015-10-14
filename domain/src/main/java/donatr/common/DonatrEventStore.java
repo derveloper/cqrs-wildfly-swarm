@@ -1,24 +1,27 @@
-package donatr.common.axon;
+package donatr.common;
 
 import org.axonframework.common.jpa.EntityManagerProvider;
 import org.axonframework.common.jpa.SimpleEntityManagerProvider;
 import org.axonframework.eventstore.EventStore;
-import org.axonframework.eventstore.jpa.*;
+import org.axonframework.eventstore.jpa.DefaultEventEntryFactory;
+import org.axonframework.eventstore.jpa.DefaultEventEntryStore;
+import org.axonframework.eventstore.jpa.EventEntryStore;
+import org.axonframework.eventstore.jpa.JpaEventStore;
 import org.axonframework.serializer.Serializer;
 import org.axonframework.serializer.json.JacksonSerializer;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@Singleton
+@ApplicationScoped
 public class DonatrEventStore {
 	@PersistenceContext
 	private EntityManager entityManager;
 
 
-	@Produces @Singleton
+	@Produces @ApplicationScoped
 	public EventStore getEventStore() {
 		EntityManagerProvider entityManagerProvider = new SimpleEntityManagerProvider(entityManager);
 		DefaultEventEntryFactory eventEntryFactory = new DefaultEventEntryFactory(true);

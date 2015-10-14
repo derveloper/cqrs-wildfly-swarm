@@ -1,4 +1,4 @@
-package donatr.common.axon;
+package donatr.common;
 
 public interface DomainConfig {
 	void initialize();

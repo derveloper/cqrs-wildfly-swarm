@@ -1,6 +1,6 @@
 package donatr.domain;
 
-import donatr.common.axon.DomainConfig;
+import donatr.common.DomainConfig;
 import donatr.domain.account.aggregate.Account;
 import donatr.domain.account.aggregate.Transaction;
 import donatr.domain.account.handler.AccountEventHandler;
@@ -12,10 +12,10 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventBus;
 import org.axonframework.eventhandling.annotation.AnnotationEventListenerAdapter;
 
-import javax.ejb.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-@Singleton
+@ApplicationScoped
 public class DomainEventBinder implements DomainConfig {
 	@Inject
 	CommandBus commandBus;
