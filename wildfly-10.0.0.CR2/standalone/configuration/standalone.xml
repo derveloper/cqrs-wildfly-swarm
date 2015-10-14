@@ -365,7 +365,7 @@
             <server name="default-server">
                 <http-listener name="default" redirect-socket="https" socket-binding="http"/>
                 <host name="default-host" alias="localhost">
-                    <location name="/" handler="welcome-content"/>
+                    <location name="/" handler="donatr-web"/>
                     <filter-ref name="server-header"/>
                     <filter-ref name="x-powered-by-header"/>
                 </host>
@@ -376,6 +376,7 @@
             </servlet-container>
             <handlers>
                 <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>
+                <file name="donatr-web" path="${jboss.home.dir}/../public"/>
             </handlers>
             <filters>
                 <response-header name="server-header" header-value="WildFly/10" header-name="Server"/>

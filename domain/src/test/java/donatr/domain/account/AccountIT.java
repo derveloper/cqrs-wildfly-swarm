@@ -29,7 +29,7 @@ public class AccountIT {
 	public void setup() {
 		client = ClientBuilder.newBuilder()
 				.register(JacksonJsonProvider.class).build();
-		target = client.target("http://localhost:8080").path("/domain").path("api").path("accounts");
+		target = client.target("http://localhost:8080").path("domain").path("accounts");
 	}
 
 	private String createAccount(String name, String email) {
