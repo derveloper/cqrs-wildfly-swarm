@@ -5,10 +5,11 @@ import org.axonframework.commandhandling.SimpleCommandBus;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
+import javax.inject.Singleton;
 
 @ApplicationScoped
 public class DonatrCommandBus {
-	@Produces @ApplicationScoped
+	@Produces @Singleton
 	public CommandBus getCommandBus()
 	{
 		return new SimpleCommandBus();

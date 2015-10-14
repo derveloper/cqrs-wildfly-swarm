@@ -8,6 +8,7 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @Path("/accounts")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Transactional
 public class AccountCommandResource {
 	@Inject
 	CommandGateway commandGateway;
@@ -24,7 +26,7 @@ public class AccountCommandResource {
 	@POST
 	public Response createAccount(CreateAccountRequest createAccountRequest) throws Exception {
 		String itemId = UUID.randomUUID().toString();
-		commandGateway.send(CreateAccountCommand.builder()
+		commandGateway.sendAndWait(CreateAccountCommand.builder()
 				.id(itemId)
 				.name(createAccountRequest.getName())
 				.email(createAccountRequest.getEmail())

@@ -7,13 +7,14 @@ import org.axonframework.commandhandling.gateway.DefaultCommandGateway;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 @ApplicationScoped
 public class DonatrCommandGateway {
 	@Inject
 	CommandBus commandBus;
 
-	@Produces @ApplicationScoped
+	@Produces @Singleton
 	public CommandGateway getCommandGateway() {
 		return new DefaultCommandGateway(commandBus);
 	}

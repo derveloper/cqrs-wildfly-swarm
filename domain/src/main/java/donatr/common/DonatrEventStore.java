@@ -12,6 +12,7 @@ import org.axonframework.serializer.json.JacksonSerializer;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
+import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -21,7 +22,7 @@ public class DonatrEventStore {
 	private EntityManager entityManager;
 
 
-	@Produces @ApplicationScoped
+	@Produces @Singleton
 	public EventStore getEventStore() {
 		EntityManagerProvider entityManagerProvider = new SimpleEntityManagerProvider(entityManager);
 		DefaultEventEntryFactory eventEntryFactory = new DefaultEventEntryFactory(true);
