@@ -6,12 +6,13 @@ import donatr.domain.account.event.TransactionCreatedEvent;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.annotation.EventHandler;
 
-public class AccountEventHandler {
-	private final CommandGateway commandGateway;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 
-	public AccountEventHandler(CommandGateway commandGateway) {
-		this.commandGateway = commandGateway;
-	}
+@RequestScoped
+public class AccountEventHandler {
+	@Inject
+	private CommandGateway commandGateway;
 
 	@EventHandler
 	public void handle(TransactionCreatedEvent event) {

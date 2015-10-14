@@ -8,7 +8,6 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -23,7 +22,6 @@ public class AccountCommandResource {
 	CommandGateway commandGateway;
 
 	@POST
-	@Transactional
 	public Response createAccount(CreateAccountRequest createAccountRequest) throws Exception {
 		String itemId = UUID.randomUUID().toString();
 		commandGateway.send(CreateAccountCommand.builder()
@@ -36,7 +34,6 @@ public class AccountCommandResource {
 
 	@POST
 	@Path("/{id}/email")
-	@Transactional
 	public Response changeAccountEmail(@PathParam("id") String id, ChangeAccountEmailRequest changeAccountEmailRequest) {
 		commandGateway.send(ChangeAccountEmailCommand.builder()
 				.id(id)
@@ -47,7 +44,6 @@ public class AccountCommandResource {
 
 	@POST
 	@Path("/{id}/type")
-	@Transactional
 	public Response changeAccountType(@PathParam("id") String id, ChangeAccountTypeRequest changeAccountTypeRequest) {
 		commandGateway.send(ChangeAccountTypeCommand.builder()
 				.id(id)
@@ -58,7 +54,6 @@ public class AccountCommandResource {
 
 	@POST
 	@Path("/transaction")
-	@Transactional
 	public Response createTransaction(CreateTransactionRequest createTransactionRequest) {
 		commandGateway.send(CreateTransactionCommand.builder()
 				.id(UUID.randomUUID().toString())

@@ -1,14 +1,35 @@
 <!doctype html>
 <html>
 <head>
-    <title>donatr</title>
+    <title>BAR!</title>
 </head>
 <body>
-    <h1>donatr</h1>
-    <ul>
-        <li>User 1</li>
-        <li>User 2</li>
-        <li>User 3</li>
-    </ul>
+<h1>FOOOO</h1>
+<button id="create-account">Create Account</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="application/javascript" src="/reconnecting-websocket.js"></script>
+<script>
+    $(function () {
+        var btn = $('#create-account');
+
+        btn.on('click', function () {
+            $.ajax('http://localhost:8080/domain/accounts', {
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({"name":"foo", "email":"foo@bar.tld"})
+            });
+        });
+
+        var ws = new ReconnectingWebSocket("ws://localhost:8080/domain/socket");
+        ws.onopen = function () {
+            console.log("opened ws");
+        };
+
+        ws.onmessage = function (message) {
+            console.log(message);
+            $('body').append($('<div/>').text(message.data));
+        };
+    });
+</script>
 </body>
 </html>
