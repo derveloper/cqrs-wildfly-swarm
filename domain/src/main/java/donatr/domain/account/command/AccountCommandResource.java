@@ -26,7 +26,7 @@ public class AccountCommandResource {
 	@POST
 	public Response createAccount(CreateAccountRequest createAccountRequest) throws Exception {
 		String itemId = UUID.randomUUID().toString();
-		commandGateway.sendAndWait(CreateAccountCommand.builder()
+		commandGateway.send(CreateAccountCommand.builder()
 				.id(itemId)
 				.name(createAccountRequest.getName())
 				.email(createAccountRequest.getEmail())

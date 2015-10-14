@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 import static donatr.domain.account.response.ResponseHelper.createGetAccountResponse;
 
@@ -16,15 +17,21 @@ import static donatr.domain.account.response.ResponseHelper.createGetAccountResp
 @Path("/accounts")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Transactional
 public class AccountQueryResource {
 	@Inject
 	AccountRepository accountRepository;
 
 	@GET
 	@Path("/{id}")
-	@Transactional
 	public GetAccountResponse getAccount(@PathParam("id") String id) {
 		Account account = accountRepository.load(id);
+		return createGetAccountResponse(account);
+	}
+
+	@GET
+	public List<GetAccountResponse> getAllAccounts() {
+		List<Account> account = accountRepository.getAllAccounts();
 		return createGetAccountResponse(account);
 	}
 }

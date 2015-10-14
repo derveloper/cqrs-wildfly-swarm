@@ -34,17 +34,14 @@ public class DomainEventBinder implements DomainConfig {
 	TransactionRepository transactionRepository;
 
 	@Inject
-	AccountEventHandler accountEventHandler;
-
-	@Inject
 	AccountWebsocketServer websocketEventHandler;
 
 
 	@Override
 	public void initialize() {
 		System.out.println("init handlers");
-		AnnotationEventListenerAdapter.subscribe(accountEventHandler, eventBus);
 		AnnotationEventListenerAdapter.subscribe(websocketEventHandler, eventBus);
+		AnnotationEventListenerAdapter.subscribe(new AccountEventHandler(commandGateway), eventBus);
 		AggregateAnnotationCommandHandler.subscribe(Account.class, accountRepository.getEventSourcingRepository(), commandBus);
 		AggregateAnnotationCommandHandler.subscribe(Transaction.class, transactionRepository.getEventSourcingRepository(), commandBus);
 	}

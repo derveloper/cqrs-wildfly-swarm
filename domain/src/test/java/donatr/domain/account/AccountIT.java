@@ -65,11 +65,11 @@ public class AccountIT {
 
 		GetAccountResponse getAccountResponse = target.path(responseEntity1)
 				.request().get(GetAccountResponse.class);
-		assertThat(getAccountResponse.getBalance().equals(BigDecimal.ZERO.movePointLeft(2)), is(true));
+		assertThat(getAccountResponse.getBalance(), is(BigDecimal.TEN));
 
 		GetAccountResponse getAccountResponse2 = target.path(responseEntity2)
 				.request().get(GetAccountResponse.class);
-		assertThat(getAccountResponse2.getBalance().equals(BigDecimal.ZERO.movePointLeft(2)), is(true));
+		assertThat(getAccountResponse2.getBalance(), is(BigDecimal.TEN.negate()));
 	}
 
 	@Test
