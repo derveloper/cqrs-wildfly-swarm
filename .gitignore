@@ -70,3 +70,4 @@ buildNumber.properties
 .mvn/timing.properties
 
 wildfly-*/
+!wildfly-10.0.0.CR2/standalone/configuration/standalone.xml
