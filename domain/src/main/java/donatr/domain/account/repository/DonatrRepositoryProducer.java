@@ -24,9 +24,15 @@ public class DonatrRepositoryProducer {
 
 
 	@Produces @Singleton
-	public AccountRepository getEventRepository() {
+	public UserAccountRepository getEventRepository() {
 		System.out.println("init event repository");
-		return new AccountRepository(eventStore, eventBus, entityManager);
+		return new UserAccountRepository(eventStore, eventBus, entityManager);
+	}
+
+	@Produces @Singleton
+	public ProductAccountRepository getProductEventRepository() {
+		System.out.println("init event repository");
+		return new ProductAccountRepository(eventStore, eventBus, entityManager);
 	}
 
 	@Produces @Singleton

@@ -23,11 +23,11 @@ ws.onmessage = function (message) {
 
 var NewUserButton = React.createClass({
     handleClick: function() {
-        $.ajax('http://localhost:8080/domain/accounts', {
+        $.ajax('/domain/accounts/user', {
             method: 'POST',
             contentType: 'application/json',
             dataType: 'json',
-            data: JSON.stringify({"name":"User", "email":"foo@bar.tld"})
+            data: JSON.stringify({"name":"Account", "email":"foo@bar.tld"})
         });
     },
     render: function() {
@@ -39,11 +39,11 @@ var NewUserButton = React.createClass({
 
 var NewProductButton = React.createClass({
     handleClick: function() {
-        $.ajax('http://localhost:8080/domain/accounts', {
+        $.ajax('/domain/accounts/product', {
             method: 'POST',
             contentType: 'application/json',
             dataType: 'json',
-            data: JSON.stringify({"name":"Product", "email":"foo@bar.tld", "accountType":"BEEN"})
+            data: JSON.stringify({"name":"Product", "fixedAmount": 10})
         });
     },
     render: function() {
@@ -85,7 +85,7 @@ var UserWithBalance = React.createClass({
     render: function() {
         return (
             <div>
-                <User user={this.props.user} />
+                <Account user={this.props.user} />
                 {this.props.user.balance}
             </div>
         );
@@ -93,26 +93,26 @@ var UserWithBalance = React.createClass({
 });
 
 var currentUser;
-var User = React.createClass({
+var Account = React.createClass({
     handleUserClick: function() {
         currentUser = this.props.user;
         ReactDOM.unmountComponentAtNode(document.getElementById('content'));
         ReactDOM.render(<ProductPage />, document.getElementById('content'));
     },
     handleProductClick: function() {
-        $.ajax('http://localhost:8080/domain/accounts/transaction', {
+        $.ajax('/domain/accounts/transaction', {
             method: 'POST',
             contentType: 'application/json',
             dataType: 'json',
-            data: JSON.stringify({"fromAccount":currentUser.id, "toAccount": this.props.user.id, "amount": 10})
+            data: JSON.stringify({fromAccount:currentUser.id, toAccount: this.props.user.id})
         });
     },
     handleClick: function () {
-        if(this.props.user.accountType === 'USER') {
-            this.handleUserClick();
+        if($.isNumeric(this.props.user.fixedAmount)) {
+            this.handleProductClick();
         }
         else {
-            this.handleProductClick();
+            this.handleUserClick();
         }
     },
     render: function() {
@@ -125,11 +125,11 @@ var User = React.createClass({
     }
 });
 
-var UserList = React.createClass({
+var AccountList = React.createClass({
     getInitialState: function() {
         return {data: []};
     },
-    loadUserList: function() {
+    loadAccountList: function() {
         if(this.isMounted()) {
             $.ajax({
                 url: this.props.url,
@@ -144,21 +144,21 @@ var UserList = React.createClass({
             });
         }
     },
-    appendUser: function (user) {
+    appendAccount: function (user) {
         if(this.isMounted()) {
             this.state.data.push(user);
             this.setState({data: this.state.data});
         }
     },
     componentDidMount: function() {
-        this.loadUserList();
-        subscribe('AccountCreatedEventWebsocketMessage', this.appendUser);
+        this.loadAccountList();
+        subscribe('AccountCreatedEventWebsocketMessage', this.appendAccount);
     },
     render: function() {
         var userNodes = this.state.data.map(function (user) {
             return (
                 <li key={user.id} className="user">
-                    <User user={user} />
+                    <Account user={user} />
                 </li>
             );
         });
@@ -176,7 +176,7 @@ var UserPage = React.createClass({
         return (
             <div className="userPage">
                 <NewUserButton />
-                <UserList url="/domain/accounts/USER" />
+                <AccountList url="/domain/accounts/user" />
             </div>
         );
     }
@@ -188,7 +188,7 @@ var ProductPage = React.createClass({
                 <NewProductButton />
                 <UserWithBalance user={currentUser} />
                 <ToUserPageButton />
-                <UserList url="/domain/accounts/BEEN" />
+                <AccountList url="/domain/accounts/product" />
             </div>
         );
     }

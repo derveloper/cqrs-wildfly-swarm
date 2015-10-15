@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAccountResponse {
+public class GetUserAccountResponse {
 	private String id;
 	private String name;
 	private String email;

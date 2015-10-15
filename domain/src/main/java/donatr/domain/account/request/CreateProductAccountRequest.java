@@ -1,4 +1,4 @@
-package donatr.domain.account.response;
+package donatr.domain.account.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,14 +7,12 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAccountResponse {
-	private String id;
+public class CreateProductAccountRequest {
 	private String name;
-	private String email;
-	private BigDecimal balance;
-	private Long version;
+	private BigDecimal fixedAmount;
 }

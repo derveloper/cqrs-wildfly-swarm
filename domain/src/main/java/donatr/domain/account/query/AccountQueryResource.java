@@ -1,9 +1,11 @@
 package donatr.domain.account.query;
 
-import donatr.domain.account.aggregate.Account;
-import donatr.domain.account.aggregate.AccountType;
-import donatr.domain.account.repository.AccountRepository;
-import donatr.domain.account.response.GetAccountResponse;
+import donatr.domain.account.aggregate.ProductAccount;
+import donatr.domain.account.aggregate.UserAccount;
+import donatr.domain.account.repository.ProductAccountRepository;
+import donatr.domain.account.repository.UserAccountRepository;
+import donatr.domain.account.response.GetProductAccountResponse;
+import donatr.domain.account.response.GetUserAccountResponse;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 import static donatr.domain.account.response.ResponseHelper.createGetAccountResponse;
+import static donatr.domain.account.response.ResponseHelper.createGetProductAccountResponse;
 
 @ApplicationScoped
 @Path("/accounts")
@@ -21,19 +24,36 @@ import static donatr.domain.account.response.ResponseHelper.createGetAccountResp
 @Transactional
 public class AccountQueryResource {
 	@Inject
-	AccountRepository accountRepository;
+	UserAccountRepository userAccountRepository;
+
+	@Inject
+	ProductAccountRepository productAccountRepository;
 
 	@GET
-	@Path("/{id: [a-f0-9]+-[a-f0-9]+-[a-f0-9]+-[a-f0-9]+-[a-f0-9]+}")
-	public GetAccountResponse getAccount(@PathParam("id") String id) {
-		Account account = accountRepository.load(id);
+	@Path("/user/{id: [a-f0-9]+-[a-f0-9]+-[a-f0-9]+-[a-f0-9]+-[a-f0-9]+}")
+	public GetUserAccountResponse getUserAccount(@PathParam("id") String id) {
+		UserAccount account = userAccountRepository.load(id);
 		return createGetAccountResponse(account);
 	}
 
 	@GET
-	@Path("/{type: [A-Z]+}")
-	public List<GetAccountResponse> getAccountsByType(@PathParam("type") AccountType type) {
-		List<Account> account = accountRepository.getAccountsByType(type);
-		return createGetAccountResponse(account);
+	@Path("/user")
+	public List<GetUserAccountResponse> getUserAccounts() {
+		List<UserAccount> accounts = userAccountRepository.getAllAccounts();
+		return createGetAccountResponse(accounts);
+	}
+
+	@GET
+	@Path("/product/{id: [a-f0-9]+-[a-f0-9]+-[a-f0-9]+-[a-f0-9]+-[a-f0-9]+}")
+	public GetProductAccountResponse getProductAccount(@PathParam("id") String id) {
+		ProductAccount account = productAccountRepository.load(id);
+		return createGetProductAccountResponse(account);
+	}
+
+	@GET
+	@Path("/product")
+	public List<GetProductAccountResponse> getProductAccounts() {
+		List<ProductAccount> account = productAccountRepository.getAllAccounts();
+		return createGetProductAccountResponse(account);
 	}
 }

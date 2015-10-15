@@ -7,7 +7,8 @@ import lombok.Value;
 @Value
 @Builder
 @AllArgsConstructor
-public class AccountCreatedEvent {
-	final String id;
-	protected final String name;
+public class UserAccountCreatedEvent {
+	private final String id;
+	private final String name;
+	private final String email;
 }

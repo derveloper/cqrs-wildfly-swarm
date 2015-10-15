@@ -1,34 +1,42 @@
 package donatr.domain.account.response;
 
-import donatr.domain.account.aggregate.Account;
+import donatr.domain.account.aggregate.ProductAccount;
+import donatr.domain.account.aggregate.UserAccount;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ResponseHelper
 {
-	public static GetAccountResponse createGetAccountResponse(Account account)
+	public static GetUserAccountResponse createGetAccountResponse(UserAccount account)
 	{
-		return GetAccountResponse.builder()
+		return GetUserAccountResponse.builder()
 				.id(account.getId())
-				.email(account.getEmail())
 				.name(account.getName())
-				.accountType(account.getAccountType())
+				.email(account.getEmail())
 				.balance(account.getBalance())
 				.version(account.getVersion())
 				.build();
 	}
 
-	public static List<GetAccountResponse> createGetAccountResponse(List<Account> accounts)
+	public static List<GetUserAccountResponse> createGetAccountResponse(List<UserAccount> accounts)
 	{
-		return accounts.stream().map(account -> GetAccountResponse.builder()
+		return accounts.stream().map(ResponseHelper::createGetAccountResponse).collect(Collectors.toList());
+	}
+
+	public static GetProductAccountResponse createGetProductAccountResponse(ProductAccount account)
+	{
+		return GetProductAccountResponse.builder()
 				.id(account.getId())
-				.email(account.getEmail())
 				.name(account.getName())
-				.accountType(account.getAccountType())
 				.balance(account.getBalance())
+				.fixedAmount(account.getFixedAmount())
 				.version(account.getVersion())
-				.build()
-		).collect(Collectors.toList());
+				.build();
+	}
+
+	public static List<GetProductAccountResponse> createGetProductAccountResponse(List<ProductAccount> accounts)
+	{
+		return accounts.stream().map(ResponseHelper::createGetProductAccountResponse).collect(Collectors.toList());
 	}
 }

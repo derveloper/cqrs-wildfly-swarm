@@ -1,6 +1,5 @@
 package donatr.domain.account.request;
 
-import donatr.domain.account.aggregate.AccountType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateAccountRequest {
+public class CreateUserAccountRequest {
 	private String name;
 	private String email;
-	private AccountType accountType;
 }

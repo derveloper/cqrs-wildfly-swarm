@@ -1,8 +1,9 @@
 package donatr.websocket;
 
-import donatr.domain.account.event.AccountCreatedEvent;
-import donatr.domain.account.event.AccountCreditedEvent;
-import donatr.domain.account.event.AccountDebitedEvent;
+import donatr.domain.account.event.ProductAccountCreatedEvent;
+import donatr.domain.account.event.UserAccountCreatedEvent;
+import donatr.domain.account.event.UserAccountCreditedEvent;
+import donatr.domain.account.event.UserAccountDebitedEvent;
 import donatr.websocket.message.AccountCreatedEventWebsocketMessage;
 import donatr.websocket.message.AccountCreditedEventWebsocketMessage;
 import donatr.websocket.message.AccountDebitedEventWebsocketMessage;
@@ -34,17 +35,25 @@ public class AccountWebsocketServer {
 	}
 
 	@EventHandler
-	public void accountCreatedEvent(AccountCreatedEvent event) throws IOException {
+	public void userAccountCreatedEvent(UserAccountCreatedEvent event) throws IOException {
 		sessionHandler.sendToAll(AccountCreatedEventWebsocketMessage.builder()
 				.id(event.getId())
 				.name(event.getName())
 				.balance(BigDecimal.ZERO)
-				.accountType(event.getAccountType())
 				.build());
 	}
 
 	@EventHandler
-	public void accountDebitedEvent(AccountDebitedEvent event) throws IOException {
+	public void productAccountCreatedEvent(ProductAccountCreatedEvent event) throws IOException {
+		sessionHandler.sendToAll(AccountCreatedEventWebsocketMessage.builder()
+				.id(event.getId())
+				.name(event.getName())
+				.balance(BigDecimal.ZERO)
+				.build());
+	}
+
+	@EventHandler
+	public void accountDebitedEvent(UserAccountDebitedEvent event) throws IOException {
 		sessionHandler.sendToAll(AccountDebitedEventWebsocketMessage.builder()
 				.id(event.getId())
 				.amount(event.getAmount())
@@ -52,7 +61,7 @@ public class AccountWebsocketServer {
 	}
 
 	@EventHandler
-	public void accountCreditedEvent(AccountCreditedEvent event) throws IOException {
+	public void accountCreditedEvent(UserAccountCreditedEvent event) throws IOException {
 		sessionHandler.sendToAll(AccountCreditedEventWebsocketMessage.builder()
 				.id(event.getId())
 				.amount(event.getAmount())

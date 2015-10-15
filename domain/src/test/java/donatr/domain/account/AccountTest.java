@@ -1,8 +1,8 @@
 package donatr.domain.account;
 
-import donatr.domain.account.aggregate.Account;
-import donatr.domain.account.aggregate.AccountType;
+import donatr.domain.account.aggregate.ProductAccount;
 import donatr.domain.account.aggregate.Transaction;
+import donatr.domain.account.aggregate.UserAccount;
 import donatr.domain.account.command.*;
 import donatr.domain.account.event.*;
 import org.axonframework.test.FixtureConfiguration;
@@ -14,31 +14,45 @@ import java.math.BigDecimal;
 
 public class AccountTest {
 	private FixtureConfiguration fixture;
+	private FixtureConfiguration productFixture;
 	private FixtureConfiguration<Transaction> transactionFixture;
 
 	@Before
 	public void setUp() throws Exception {
-		fixture = Fixtures.newGivenWhenThenFixture(Account.class);
+		fixture = Fixtures.newGivenWhenThenFixture(UserAccount.class);
+		productFixture = Fixtures.newGivenWhenThenFixture(ProductAccount.class);
 		transactionFixture = Fixtures.newGivenWhenThenFixture(Transaction.class);
 	}
 
 	@Test
-	public void shouldCreateAccount() throws Exception {
+	public void shouldCreateUserAccount() throws Exception {
 		fixture.given()
-				.when(CreateAccountCommand.builder()
+				.when(CreateUserAccountCommand.builder()
 						.id("todo1")
 						.name("need to implement the aggregate")
 						.email("foo@bar.tld").build())
-				.expectEvents(AccountCreatedEvent.builder()
+				.expectEvents(UserAccountCreatedEvent.builder()
 						.id("todo1")
 						.name("need to implement the aggregate")
 						.email("foo@bar.tld").build());
 	}
 
 	@Test
+	public void shouldCreateProductAccount() throws Exception {
+		productFixture.given()
+				.when(CreateProductAccountCommand.builder()
+						.id("prod1")
+						.fixedAmount(BigDecimal.TEN)
+						.name("need to implement the aggregate").build())
+				.expectEvents(ProductAccountCreatedEvent.builder()
+						.id("prod1")
+						.name("need to implement the aggregate")
+						.fixedAmount(BigDecimal.TEN).build());
+	}
+
+	@Test
 	public void shouldUpdateEmail() throws Exception {
-		fixture.given(
-				AccountCreatedEvent.builder()
+		fixture.given(UserAccountCreatedEvent.builder()
 				.id("todo1")
 				.name("need to implement the aggregate")
 				.email("foo2@bar.tld").build())
@@ -47,20 +61,8 @@ public class AccountTest {
 	}
 
 	@Test
-	public void shouldUpdateType() throws Exception {
-		fixture.given(
-				AccountCreatedEvent.builder()
-						.id("todo1")
-						.name("need to implement the aggregate")
-						.email("foo2@bar.tld").build())
-				.when(ChangeAccountTypeCommand.builder().id("todo1").accountType(AccountType.BANK).build())
-				.expectEvents(AccountTypeChangedEvent.builder().id("todo1").accountType(AccountType.BANK).build());
-	}
-
-	@Test
-	public void shouldCreditAccount() throws Exception {
-		fixture.given(
-				AccountCreatedEvent.builder()
+	public void shouldCreditUserAccount() throws Exception {
+		fixture.given(UserAccountCreatedEvent.builder()
 						.id("todo1")
 						.name("need to implement the aggregate")
 						.email("foo2@bar.tld").build())
@@ -69,9 +71,8 @@ public class AccountTest {
 	}
 
 	@Test
-	public void shouldDebitAccount() throws Exception {
-		fixture.given(
-				AccountCreatedEvent.builder()
+	public void shouldDebitUserAccount() throws Exception {
+		fixture.given(UserAccountCreatedEvent.builder()
 						.id("todo1")
 						.name("need to implement the aggregate")
 						.email("foo2@bar.tld").build())
@@ -86,11 +87,10 @@ public class AccountTest {
 						.fromAccount("todo1")
 						.toAccount("todo2")
 						.amount(BigDecimal.TEN).build())
-				.expectEvents(
-						TransactionCreatedEvent.builder()
-								.id("todo1")
-								.fromAccount("todo1")
-								.toAccount("todo2")
-								.amount(BigDecimal.TEN).build());
+				.expectEvents(TransactionCreatedEvent.builder()
+						.id("todo1")
+						.fromAccount("todo1")
+						.toAccount("todo2")
+						.amount(BigDecimal.TEN).build());
 	}
 }

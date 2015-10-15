@@ -1,9 +1,9 @@
 package donatr.domain.account.command;
 
 import donatr.domain.account.request.ChangeAccountEmailRequest;
-import donatr.domain.account.request.ChangeAccountTypeRequest;
-import donatr.domain.account.request.CreateAccountRequest;
+import donatr.domain.account.request.CreateProductAccountRequest;
 import donatr.domain.account.request.CreateTransactionRequest;
+import donatr.domain.account.request.CreateUserAccountRequest;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -24,33 +24,35 @@ public class AccountCommandResource {
 	CommandGateway commandGateway;
 
 	@POST
-	public Response createAccount(CreateAccountRequest createAccountRequest) throws Exception {
+	@Path("/user")
+	public Response createUserAccount(CreateUserAccountRequest createAccountRequest) throws Exception {
 		String itemId = UUID.randomUUID().toString();
-		commandGateway.send(CreateAccountCommand.builder()
+		commandGateway.send(CreateUserAccountCommand.builder()
 				.id(itemId)
 				.name(createAccountRequest.getName())
 				.email(createAccountRequest.getEmail())
-				.accountType(createAccountRequest.getAccountType())
 				.build());
 		return Response.ok(itemId).build();
 	}
 
 	@POST
-	@Path("/{id}/email")
+	@Path("/product")
+	public Response createProductAccount(CreateProductAccountRequest createAccountRequest) throws Exception {
+		String itemId = UUID.randomUUID().toString();
+		commandGateway.send(CreateProductAccountCommand.builder()
+				.id(itemId)
+				.name(createAccountRequest.getName())
+				.fixedAmount(createAccountRequest.getFixedAmount())
+				.build());
+		return Response.ok(itemId).build();
+	}
+
+	@POST
+	@Path("/user/{id}/email")
 	public Response changeAccountEmail(@PathParam("id") String id, ChangeAccountEmailRequest changeAccountEmailRequest) {
 		commandGateway.send(ChangeAccountEmailCommand.builder()
 				.id(id)
 				.email(changeAccountEmailRequest.getEmail())
-				.build());
-		return Response.ok().build();
-	}
-
-	@POST
-	@Path("/{id}/type")
-	public Response changeAccountType(@PathParam("id") String id, ChangeAccountTypeRequest changeAccountTypeRequest) {
-		commandGateway.send(ChangeAccountTypeCommand.builder()
-				.id(id)
-				.accountType(changeAccountTypeRequest.getAccountType())
 				.build());
 		return Response.ok().build();
 	}
