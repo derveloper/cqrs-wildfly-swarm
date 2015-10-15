@@ -65,14 +65,22 @@ var ToUserPageButton = React.createClass({
     }
 });
 
-var UserBalance = React.createClass({
-    updateBalance: function(message) {
-        this.props.user.balance -= message.amount;
-        this.setState({user: this.props.user});
-        console.log(this.state.user);
+var UserWithBalance = React.createClass({
+    subtractBalance: function(message) {
+        if(message.id === this.props.user.id) {
+            this.props.user.balance -= message.amount;
+            this.setState({user: this.props.user});
+        }
+    },
+    addBalance: function(message) {
+        if(message.id === this.props.user.id) {
+            this.props.user.balance += message.amount;
+            this.setState({user: this.props.user});
+        }
     },
     componentDidMount: function() {
-        subscribe('AccountDebitedEventWebsocketMessage', this.updateBalance);
+        subscribe('AccountDebitedEventWebsocketMessage', this.subtractBalance);
+        subscribe('AccountCreditedEventWebsocketMessage', this.addBalance);
     },
     render: function() {
         return (
@@ -122,21 +130,25 @@ var UserList = React.createClass({
         return {data: []};
     },
     loadUserList: function() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                this.setState({data: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+        if(this.isMounted()) {
+            $.ajax({
+                url: this.props.url,
+                dataType: 'json',
+                cache: false,
+                success: function(data) {
+                    this.setState({data: data});
+                }.bind(this),
+                error: function(xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                }.bind(this)
+            });
+        }
     },
     appendUser: function (user) {
-        this.state.data.push(user);
-        this.setState({data: this.state.data});
+        if(this.isMounted()) {
+            this.state.data.push(user);
+            this.setState({data: this.state.data});
+        }
     },
     componentDidMount: function() {
         this.loadUserList();
@@ -164,7 +176,6 @@ var UserPage = React.createClass({
         return (
             <div className="userPage">
                 <NewUserButton />
-                <NewProductButton />
                 <UserList url="/domain/accounts/USER" />
             </div>
         );
@@ -174,7 +185,8 @@ var ProductPage = React.createClass({
     render: function() {
         return (
             <div className="userPage">
-                <UserBalance user={currentUser} />
+                <NewProductButton />
+                <UserWithBalance user={currentUser} />
                 <ToUserPageButton />
                 <UserList url="/domain/accounts/BEEN" />
             </div>

@@ -1,8 +1,10 @@
 package donatr.websocket;
 
 import donatr.domain.account.event.AccountCreatedEvent;
+import donatr.domain.account.event.AccountCreditedEvent;
 import donatr.domain.account.event.AccountDebitedEvent;
 import donatr.websocket.message.AccountCreatedEventWebsocketMessage;
+import donatr.websocket.message.AccountCreditedEventWebsocketMessage;
 import donatr.websocket.message.AccountDebitedEventWebsocketMessage;
 import org.axonframework.eventhandling.annotation.EventHandler;
 
@@ -33,18 +35,25 @@ public class AccountWebsocketServer {
 
 	@EventHandler
 	public void accountCreatedEvent(AccountCreatedEvent event) throws IOException {
-		System.out.println("pushing websocket event " + event);
 		sessionHandler.sendToAll(AccountCreatedEventWebsocketMessage.builder()
 				.id(event.getId())
 				.name(event.getName())
 				.balance(BigDecimal.ZERO)
+				.accountType(event.getAccountType())
 				.build());
 	}
 
 	@EventHandler
 	public void accountDebitedEvent(AccountDebitedEvent event) throws IOException {
-		System.out.println("pushing websocket event " + event);
 		sessionHandler.sendToAll(AccountDebitedEventWebsocketMessage.builder()
+				.id(event.getId())
+				.amount(event.getAmount())
+				.build());
+	}
+
+	@EventHandler
+	public void accountCreditedEvent(AccountCreditedEvent event) throws IOException {
+		sessionHandler.sendToAll(AccountCreditedEventWebsocketMessage.builder()
 				.id(event.getId())
 				.amount(event.getAmount())
 				.build());
