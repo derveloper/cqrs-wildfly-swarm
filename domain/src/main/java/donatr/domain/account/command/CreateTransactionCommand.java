@@ -15,9 +15,7 @@ import java.math.BigDecimal;
 public class CreateTransactionCommand {
 	@TargetAggregateIdentifier
 	private String id;
-	@TargetAggregateIdentifier
 	private String fromAccount;
-	@TargetAggregateIdentifier
 	private String toAccount;
 	private BigDecimal amount;
 }

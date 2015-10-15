@@ -1,6 +1,7 @@
 package donatr.domain.account.query;
 
 import donatr.domain.account.aggregate.Account;
+import donatr.domain.account.aggregate.AccountType;
 import donatr.domain.account.repository.AccountRepository;
 import donatr.domain.account.response.GetAccountResponse;
 
@@ -23,15 +24,16 @@ public class AccountQueryResource {
 	AccountRepository accountRepository;
 
 	@GET
-	@Path("/{id}")
+	@Path("/{id: [a-f0-9]+-[a-f0-9]+-[a-f0-9]+-[a-f0-9]+-[a-f0-9]+}")
 	public GetAccountResponse getAccount(@PathParam("id") String id) {
 		Account account = accountRepository.load(id);
 		return createGetAccountResponse(account);
 	}
 
 	@GET
-	public List<GetAccountResponse> getAllAccounts() {
-		List<Account> account = accountRepository.getAllAccounts();
+	@Path("/{type: [A-Z]+}")
+	public List<GetAccountResponse> getAccountsByType(@PathParam("type") AccountType type) {
+		List<Account> account = accountRepository.getAccountsByType(type);
 		return createGetAccountResponse(account);
 	}
 }

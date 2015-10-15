@@ -6,6 +6,8 @@ import donatr.domain.account.event.TransactionCreatedEvent;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.annotation.EventHandler;
 
+import javax.transaction.Transactional;
+
 public class AccountEventHandler {
 	private CommandGateway commandGateway;
 
@@ -14,13 +16,14 @@ public class AccountEventHandler {
 	}
 
 	@EventHandler
+	@Transactional
 	public void handle(TransactionCreatedEvent event) {
 		System.out.println("SAGA " + event);
-		commandGateway.send(DebitAccountCommand.builder()
+		commandGateway.sendAndWait(DebitAccountCommand.builder()
 				.id(event.getFromAccount())
 				.amount(event.getAmount())
 				.build());
-		commandGateway.send(CreditAccountCommand.builder()
+		commandGateway.sendAndWait(CreditAccountCommand.builder()
 				.id(event.getToAccount())
 				.amount(event.getAmount())
 				.build());

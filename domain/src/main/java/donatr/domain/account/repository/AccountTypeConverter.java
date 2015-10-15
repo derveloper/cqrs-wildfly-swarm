@@ -27,10 +27,6 @@ public class AccountTypeConverter implements AttributeConverter<AccountType, Str
 
 	private final ObjectMapper mapper = new ObjectMapper();
 
-	public AccountTypeConverter() {
-
-	}
-
 	@Override
 	public ObjectMapper getContext(Class<?> type) {
 		return mapper;

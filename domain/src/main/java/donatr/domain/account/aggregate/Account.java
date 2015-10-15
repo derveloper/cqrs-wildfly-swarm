@@ -34,6 +34,7 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 		apply(AccountCreatedEvent.builder()
 				.id(command.getId())
 				.name(command.getName())
+				.accountType(command.getAccountType())
 				.email(command.getEmail()).build());
 	}
 
@@ -71,7 +72,7 @@ public class Account extends AbstractAnnotatedAggregateRoot<String> {
 		this.name = event.getName();
 		this.email = event.getEmail();
 		this.balance = BigDecimal.ZERO;
-		this.accountType = AccountType.USER;
+		this.accountType = event.getAccountType() == null ? AccountType.USER : event.getAccountType();
 	}
 
 	@EventSourcingHandler

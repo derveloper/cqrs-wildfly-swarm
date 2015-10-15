@@ -1,6 +1,9 @@
 package donatr.websocket;
 
 import donatr.domain.account.event.AccountCreatedEvent;
+import donatr.domain.account.event.AccountDebitedEvent;
+import donatr.websocket.message.AccountCreatedEventWebsocketMessage;
+import donatr.websocket.message.AccountDebitedEventWebsocketMessage;
 import org.axonframework.eventhandling.annotation.EventHandler;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -10,6 +13,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @ApplicationScoped
 @ServerEndpoint("/socket")
@@ -30,6 +34,19 @@ public class AccountWebsocketServer {
 	@EventHandler
 	public void accountCreatedEvent(AccountCreatedEvent event) throws IOException {
 		System.out.println("pushing websocket event " + event);
-		sessionHandler.sendToAll(event.toString());
+		sessionHandler.sendToAll(AccountCreatedEventWebsocketMessage.builder()
+				.id(event.getId())
+				.name(event.getName())
+				.balance(BigDecimal.ZERO)
+				.build());
+	}
+
+	@EventHandler
+	public void accountDebitedEvent(AccountDebitedEvent event) throws IOException {
+		System.out.println("pushing websocket event " + event);
+		sessionHandler.sendToAll(AccountDebitedEventWebsocketMessage.builder()
+				.id(event.getId())
+				.amount(event.getAmount())
+				.build());
 	}
 }

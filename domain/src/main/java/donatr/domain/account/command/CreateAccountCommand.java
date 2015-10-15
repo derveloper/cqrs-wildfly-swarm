@@ -1,5 +1,6 @@
 package donatr.domain.account.command;
 
+import donatr.domain.account.aggregate.AccountType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,4 +16,5 @@ public class CreateAccountCommand {
 	private String id;
 	private String name;
 	private String email;
+	private AccountType accountType;
 }

@@ -30,6 +30,7 @@ public class AccountCommandResource {
 				.id(itemId)
 				.name(createAccountRequest.getName())
 				.email(createAccountRequest.getEmail())
+				.accountType(createAccountRequest.getAccountType())
 				.build());
 		return Response.ok(itemId).build();
 	}

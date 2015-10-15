@@ -57,19 +57,19 @@ public class AccountIT {
 		String responseEntity2 = createAccount("foo2", "foo2@bar.tld");
 
 		CreateTransactionRequest tx = CreateTransactionRequest.builder()
-				.fromAccount("foo1")
-				.toAccount("foo2")
+				.fromAccount(responseEntity1)
+				.toAccount(responseEntity2)
 				.amount(BigDecimal.TEN).build();
 		Response response = target.path("transaction").request().post(Entity.entity(tx, MediaType.APPLICATION_JSON_TYPE));
 		assertThat(response.getStatus(), is(HttpURLConnection.HTTP_OK));
 
 		GetAccountResponse getAccountResponse = target.path(responseEntity1)
 				.request().get(GetAccountResponse.class);
-		assertThat(getAccountResponse.getBalance(), is(BigDecimal.TEN));
+		assertThat(getAccountResponse.getBalance(), is(BigDecimal.TEN.negate().setScale(2,2)));
 
 		GetAccountResponse getAccountResponse2 = target.path(responseEntity2)
 				.request().get(GetAccountResponse.class);
-		assertThat(getAccountResponse2.getBalance(), is(BigDecimal.TEN.negate()));
+		assertThat(getAccountResponse2.getBalance(), is(BigDecimal.TEN.setScale(2,2)));
 	}
 
 	@Test

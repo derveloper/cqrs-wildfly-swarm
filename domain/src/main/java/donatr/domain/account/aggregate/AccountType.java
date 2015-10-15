@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum AccountType {
-	USER("user"),
-	BANK("bank"),
-	BEEN("bean");
+	USER("USER"),
+	BANK("BANK"),
+	BEEN("BEEN");
 
 	private final String value;
 
@@ -18,9 +18,8 @@ public enum AccountType {
 	@JsonCreator
 	public static AccountType parse(String id) {
 		AccountType accountType = null;
-		id = id.toLowerCase();
 		for (AccountType item : AccountType.values()) {
-			if (item.getValue().equals(id)) {
+			if (item.getValue().equalsIgnoreCase(id)) {
 				accountType = item;
 				break;
 			}
