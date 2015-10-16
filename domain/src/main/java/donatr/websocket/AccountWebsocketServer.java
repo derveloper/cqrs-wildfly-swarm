@@ -4,9 +4,10 @@ import donatr.domain.account.event.ProductAccountCreatedEvent;
 import donatr.domain.account.event.UserAccountCreatedEvent;
 import donatr.domain.account.event.UserAccountCreditedEvent;
 import donatr.domain.account.event.UserAccountDebitedEvent;
-import donatr.websocket.message.AccountCreatedEventWebsocketMessage;
 import donatr.websocket.message.AccountCreditedEventWebsocketMessage;
 import donatr.websocket.message.AccountDebitedEventWebsocketMessage;
+import donatr.websocket.message.ProductAccountCreatedEventWebsocketMessage;
+import donatr.websocket.message.UserAccountCreatedEventWebsocketMessage;
 import org.axonframework.eventhandling.annotation.EventHandler;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -36,7 +37,7 @@ public class AccountWebsocketServer {
 
 	@EventHandler
 	public void userAccountCreatedEvent(UserAccountCreatedEvent event) throws IOException {
-		sessionHandler.sendToAll(AccountCreatedEventWebsocketMessage.builder()
+		sessionHandler.sendToAll(UserAccountCreatedEventWebsocketMessage.builder()
 				.id(event.getId())
 				.name(event.getName())
 				.balance(BigDecimal.ZERO)
@@ -45,10 +46,11 @@ public class AccountWebsocketServer {
 
 	@EventHandler
 	public void productAccountCreatedEvent(ProductAccountCreatedEvent event) throws IOException {
-		sessionHandler.sendToAll(AccountCreatedEventWebsocketMessage.builder()
+		sessionHandler.sendToAll(ProductAccountCreatedEventWebsocketMessage.builder()
 				.id(event.getId())
 				.name(event.getName())
 				.balance(BigDecimal.ZERO)
+				.balance(event.getFixedAmount())
 				.build());
 	}
 

@@ -152,7 +152,8 @@ var AccountList = React.createClass({
     },
     componentDidMount: function() {
         this.loadAccountList();
-        subscribe('AccountCreatedEventWebsocketMessage', this.appendAccount);
+        subscribe('UserAccountCreatedEventWebsocketMessage', this.appendAccount);
+        subscribe('ProductAccountCreatedEventWebsocketMessage', this.appendAccount);
     },
     render: function() {
         var userNodes = this.state.data.map(function (user) {

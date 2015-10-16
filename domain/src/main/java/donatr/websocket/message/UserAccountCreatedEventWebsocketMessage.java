@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Builder
 @Data
-public class AccountCreatedEventWebsocketMessage extends WebsocketMessage {
+public class UserAccountCreatedEventWebsocketMessage extends WebsocketMessage {
 	private String id;
 	private String name;
 	private BigDecimal balance;
