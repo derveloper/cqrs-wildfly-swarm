@@ -167,7 +167,11 @@ var Account = React.createClass({
             method: 'POST',
             contentType: 'application/json',
             dataType: 'json',
-            data: JSON.stringify({fromAccount:currentAccount.id, toAccount: this.props.account.id})
+            data: JSON.stringify({
+                fromAccount:currentAccount.id,
+                toAccount: this.props.account.id,
+                amount: this.props.account.fixedAmount
+            })
         });
     },
     handleClick: function () {
