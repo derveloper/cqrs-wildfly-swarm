@@ -1,8 +1,4 @@
-#accounts {
-
-}
-
-ul#users {
+ul#accounts {
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;
@@ -25,15 +21,15 @@ ul#users {
     padding: 0;
 }
 
-li.user {
+li.account {
     padding: 1rem;
     display: inline-block;
 }
 
-li.user div.user {
+li.account div.account {
     cursor: pointer;
 }
 
-li.user div.user .name {
+li.account div.account .name {
     text-align: center;
 }
