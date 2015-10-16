@@ -50,7 +50,7 @@ public class AccountWebsocketServer {
 				.id(event.getId())
 				.name(event.getName())
 				.balance(BigDecimal.ZERO)
-				.balance(event.getFixedAmount())
+				.fixedAmount(event.getFixedAmount())
 				.build());
 	}
 
