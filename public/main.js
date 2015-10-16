@@ -116,6 +116,7 @@ var ProductAccountForm = React.createClass({
             dataType: 'json',
             data: JSON.stringify({fixedAmount:this.refs.price.state.price, name:this.refs.name.state.name})
         });
+        $('#user-form').trigger("reset");
     },
     render: function() {
         return (
@@ -139,10 +140,11 @@ var UserAccountForm = React.createClass({
             dataType: 'json',
             data: JSON.stringify({email:this.refs.email.state.email, name:this.refs.name.state.name})
         });
+        $('#user-form').trigger("reset");
     },
     render: function () {
         return (
-            <form onSubmit={this.handleOnSubmit}>
+            <form id="user-form" onSubmit={this.handleOnSubmit}>
                 <div>
                     <AccountFormNameInput ref="name" />
                     <UserAccountEmailFormInput ref="email" />
@@ -218,8 +220,12 @@ var AccountList = React.createClass({
     },
     componentDidMount: function() {
         this.loadAccountList();
-        subscribe('UserAccountCreatedEventWebsocketMessage', this.appendAccount);
-        subscribe('ProductAccountCreatedEventWebsocketMessage', this.appendAccount);
+        if(this.props.type === 'user') {
+            subscribe('UserAccountCreatedEventWebsocketMessage', this.appendAccount);
+        }
+        else if(this.props.type === 'product') {
+            subscribe('ProductAccountCreatedEventWebsocketMessage', this.appendAccount);
+        }
     },
     render: function() {
         var accountNodes = this.state.data.map(function (account) {

@@ -66,8 +66,8 @@ public class AccountTest {
 						.id("todo1")
 						.name("need to implement the aggregate")
 						.email("foo2@bar.tld").build())
-				.when(CreditAccountCommand.builder().id("todo1").amount(BigDecimal.TEN).build())
-				.expectEvents(AccountCreditedEvent.builder().id("todo1").amount(BigDecimal.TEN).build());
+				.when(CreditUserAccountCommand.builder().id("todo1").amount(BigDecimal.TEN).build())
+				.expectEvents(UserAccountCreditedEvent.builder().id("todo1").amount(BigDecimal.TEN).build());
 	}
 
 	@Test
@@ -76,8 +76,8 @@ public class AccountTest {
 						.id("todo1")
 						.name("need to implement the aggregate")
 						.email("foo2@bar.tld").build())
-				.when(DebitAccountCommand.builder().id("todo1").amount(BigDecimal.TEN).build())
-				.expectEvents(AccountDebitedEvent.builder().id("todo1").amount(BigDecimal.TEN).build());
+				.when(DebitUserAccountCommand.builder().id("todo1").amount(BigDecimal.TEN).build())
+				.expectEvents(UserAccountDebitedEvent.builder().id("todo1").amount(BigDecimal.TEN).build());
 	}
 
 	@Test
