@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">donatr</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_product">donate to</string>
+    <string name="dummyUsername">Username</string>
+    <string name="dummyProductname">Product1</string>
+    <string name="user_activity_title">donatr</string>
+    <string name="product_activity_title">donate for</string>
+</resources>

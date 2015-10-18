@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="55dp"
+    android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+    <include layout="@layout/account_view" android:id="@+id/userView" />
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/usergrid"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:columnWidth="90dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        />
+</TableLayout>
