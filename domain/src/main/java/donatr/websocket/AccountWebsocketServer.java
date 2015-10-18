@@ -40,6 +40,7 @@ public class AccountWebsocketServer {
 		sessionHandler.sendToAll(UserAccountCreatedEventWebsocketMessage.builder()
 				.id(event.getId())
 				.name(event.getName())
+				.email(event.getEmail())
 				.balance(BigDecimal.ZERO)
 				.build());
 	}

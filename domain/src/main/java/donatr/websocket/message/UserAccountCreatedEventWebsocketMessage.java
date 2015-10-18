@@ -10,5 +10,6 @@ import java.math.BigDecimal;
 public class UserAccountCreatedEventWebsocketMessage extends WebsocketMessage {
 	private String id;
 	private String name;
+	private String email;
 	private BigDecimal balance;
 }
