@@ -23,7 +23,7 @@ public class AccountEventHandler {
 	@EventHandler
 	@Transactional
 	public void handle(TransactionCreatedEvent event) {
-		System.out.println("SAGA " + event);
+		System.out.println("EventHandler " + event);
 		ProductAccount productAccount = productAccountRepository.load(event.getToAccount());
 		BigDecimal amount = event.getAmount();
 		if(productAccount != null) {
