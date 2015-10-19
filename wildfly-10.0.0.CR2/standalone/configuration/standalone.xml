@@ -428,4 +428,10 @@
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
     </socket-binding-group>
+
+    <deployments>
+        <deployment name="domain" runtime-name="domain.war">
+            <fs-exploded path="/home/vileda/Projects/java/donatr/domain/target/domain"/>
+        </deployment>
+    </deployments>
 </server>
