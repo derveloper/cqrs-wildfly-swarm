@@ -6,4 +6,19 @@
     <string name="dummyProductname">Product1</string>
     <string name="user_activity_title">donatr</string>
     <string name="product_activity_title">donate for</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_donatr_host">donatr host</string>
+    <string name="pref_description_donatr_host">the hostname or IP of the donatr instance</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_transaction_notifications">Show toast for transactions</string>
+    <string name="pref_default_donatr_host">donatr</string>
 </resources>

@@ -4,6 +4,7 @@ import donatr.common.DomainConfig;
 import donatr.domain.account.aggregate.ProductAccount;
 import donatr.domain.account.aggregate.Transaction;
 import donatr.domain.account.aggregate.UserAccount;
+import donatr.domain.account.handler.AccountEventHandler;
 import donatr.domain.account.handler.TransactionSaga;
 import donatr.domain.account.repository.ProductAccountRepository;
 import donatr.domain.account.repository.TransactionRepository;
@@ -52,12 +53,12 @@ public class DomainEventBinder implements DomainConfig {
 	public void initialize() {
 		System.out.println("init handlers");
 		AnnotationEventListenerAdapter.subscribe(websocketEventHandler, eventBus);
-		//AnnotationEventListenerAdapter.subscribe(new AccountEventHandler(productAccountRepository, commandGateway), eventBus);
-		GenericSagaFactory sagaFactory = new GenericSagaFactory();
-		sagaFactory.setResourceInjector(new SimpleResourceInjector(commandGateway, productAccountRepository));
-		AnnotatedSagaManager sagaManager = new AnnotatedSagaManager(
-				sagaRepository, sagaFactory, eventBus, TransactionSaga.class);
-		sagaManager.subscribe();
+		AnnotationEventListenerAdapter.subscribe(new AccountEventHandler(productAccountRepository, commandGateway), eventBus);
+		//GenericSagaFactory sagaFactory = new GenericSagaFactory();
+		//sagaFactory.setResourceInjector(new SimpleResourceInjector(commandGateway, productAccountRepository));
+		//AnnotatedSagaManager sagaManager = new AnnotatedSagaManager(
+		//		sagaRepository, sagaFactory, eventBus, TransactionSaga.class);
+		//sagaManager.subscribe();
 		//AnnotationEventListenerAdapter.subscribe(sagaManager, eventBus);
 		AggregateAnnotationCommandHandler.subscribe(UserAccount.class, userAccountRepository.getEventSourcingRepository(), commandBus);
 		AggregateAnnotationCommandHandler.subscribe(ProductAccount.class, productAccountRepository.getEventSourcingRepository(), commandBus);

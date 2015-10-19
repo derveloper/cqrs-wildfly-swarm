@@ -2,13 +2,15 @@ package donatr.mobile;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +24,6 @@ import com.google.gson.Gson;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
-import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -34,18 +35,17 @@ import retrofit.Retrofit;
 
 public class UserActivity extends AppCompatActivity {
     UserListAdapter adapter;
+    String donatrHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.178.32:8080")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        donatrHost = getDonatrHost();
+
+        initActivity();
+
+        Retrofit retrofit = initRestClient();
 
         final DonatrRestClient donatrRestClient = retrofit.create(DonatrRestClient.class);
 
@@ -104,7 +104,7 @@ public class UserActivity extends AppCompatActivity {
         donatrRestClient.listRepos().enqueue(new Callback<List<UserAccount>>() {
             @Override
             public void onResponse(Response<List<UserAccount>> response, Retrofit retrofit) {
-                adapter.setBody(response.body());
+                adapter.setAccounts(response.body());
                 Log.i("RestClient", "fetched " + adapter.getCount());
             }
 
@@ -113,6 +113,25 @@ public class UserActivity extends AppCompatActivity {
                 Log.e("DonatrRestClient", t.getMessage());
             }
         });
+    }
+
+    private void initActivity() {
+        setContentView(R.layout.activity_user);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+    @NonNull
+    private Retrofit initRestClient() {
+        return new Retrofit.Builder()
+                    .baseUrl("http://" + donatrHost)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+    }
+
+    private String getDonatrHost() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        return sharedPref.getString("donatr_host", "donatr");
     }
 
     @Override
@@ -131,6 +150,8 @@ public class UserActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
             return true;
         }
 
@@ -140,7 +161,7 @@ public class UserActivity extends AppCompatActivity {
     private void connectWebSocket() {
         URI uri;
         try {
-            uri = new URI("ws://192.168.178.32:8080/domain/socket");
+            uri = new URI("ws://"+donatrHost+"/domain/socket");
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return;

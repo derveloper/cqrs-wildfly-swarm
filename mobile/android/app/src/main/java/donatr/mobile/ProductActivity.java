@@ -3,10 +3,11 @@ package donatr.mobile;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -37,6 +38,7 @@ public class ProductActivity extends AppCompatActivity {
     ProductListAdapter adapter;
     TextView balanceView;
     UserAccount currentUser;
+    String donatrHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,11 @@ public class ProductActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        donatrHost = sharedPref.getString("donatr_host", "donatr");
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.178.32:8080")
+                .baseUrl("http://"+donatrHost)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -114,7 +119,7 @@ public class ProductActivity extends AppCompatActivity {
         balanceView.setVisibility(View.VISIBLE);
 
         final GridView gridLayout = (GridView) findViewById(R.id.usergrid);
-        adapter = new ProductListAdapter(this, currentUser);
+        adapter = new ProductListAdapter(this, currentUser, donatrRestClient);
         gridLayout.setAdapter(adapter);
         donatrRestClient.listProduct().enqueue(new Callback<List<ProductAccount>>() {
             @Override
@@ -134,7 +139,7 @@ public class ProductActivity extends AppCompatActivity {
     private void connectWebSocket() {
         URI uri;
         try {
-            uri = new URI("ws://192.168.178.32:8080/domain/socket");
+            uri = new URI("ws://"+donatrHost+"/domain/socket");
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return;

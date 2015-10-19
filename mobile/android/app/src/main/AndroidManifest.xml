@@ -37,6 +37,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="donatr.mobile.UserActivity" />
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".UserActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="donatr.mobile.UserActivity" />
+        </activity>
     </application>
 
 </manifest>
