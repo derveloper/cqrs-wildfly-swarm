@@ -1,3 +1,6 @@
+/db/donatr.db.trace.db
+/db/donatr.db.lock.db
+/db/donatr.db.h2.db
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
 

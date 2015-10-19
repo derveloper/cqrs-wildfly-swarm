@@ -146,6 +146,14 @@
                         <password>sa</password>
                     </security>
                 </datasource>
+                <datasource jndi-name="java:jboss/datasources/DonatrDS" pool-name="DonatrDS" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:h2:file:${jboss.home.dir}/../db/donatr.db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url>
+                    <driver>h2</driver>
+                    <security>
+                        <user-name>sa</user-name>
+                        <password>sa</password>
+                    </security>
+                </datasource>
                 <datasource jndi-name="java:/MyDS" pool-name="PostgrePool">
                     <connection-url>jdbc:postgresql://localhost/donatr</connection-url>
                     <driver>postgresql</driver>
@@ -420,10 +428,4 @@
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
     </socket-binding-group>
-
-    <deployments>
-        <deployment name="domain" runtime-name="domain.war">
-            <fs-exploded path="/home/vileda/Projects/java/donatr/domain/target/domain"/>
-        </deployment>
-    </deployments>
 </server>
